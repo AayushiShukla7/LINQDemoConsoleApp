@@ -1,0 +1,15 @@
+E:\VS\repos\ASP.NET CORE\LINQDemoConsoleApp\LINQDemoConsole\bin\Debug\net6.0\LINQDemoConsole.exe
+E:\VS\repos\ASP.NET CORE\LINQDemoConsoleApp\LINQDemoConsole\bin\Debug\net6.0\LINQDemoConsole.deps.json
+E:\VS\repos\ASP.NET CORE\LINQDemoConsoleApp\LINQDemoConsole\bin\Debug\net6.0\LINQDemoConsole.runtimeconfig.json
+E:\VS\repos\ASP.NET CORE\LINQDemoConsoleApp\LINQDemoConsole\bin\Debug\net6.0\LINQDemoConsole.dll
+E:\VS\repos\ASP.NET CORE\LINQDemoConsoleApp\LINQDemoConsole\bin\Debug\net6.0\LINQDemoConsole.pdb
+E:\VS\repos\ASP.NET CORE\LINQDemoConsoleApp\LINQDemoConsole\obj\Debug\net6.0\LINQDemoConsole.csproj.AssemblyReference.cache
+E:\VS\repos\ASP.NET CORE\LINQDemoConsoleApp\LINQDemoConsole\obj\Debug\net6.0\LINQDemoConsole.GeneratedMSBuildEditorConfig.editorconfig
+E:\VS\repos\ASP.NET CORE\LINQDemoConsoleApp\LINQDemoConsole\obj\Debug\net6.0\LINQDemoConsole.AssemblyInfoInputs.cache
+E:\VS\repos\ASP.NET CORE\LINQDemoConsoleApp\LINQDemoConsole\obj\Debug\net6.0\LINQDemoConsole.AssemblyInfo.cs
+E:\VS\repos\ASP.NET CORE\LINQDemoConsoleApp\LINQDemoConsole\obj\Debug\net6.0\LINQDemoConsole.csproj.CoreCompileInputs.cache
+E:\VS\repos\ASP.NET CORE\LINQDemoConsoleApp\LINQDemoConsole\obj\Debug\net6.0\LINQDemoConsole.dll
+E:\VS\repos\ASP.NET CORE\LINQDemoConsoleApp\LINQDemoConsole\obj\Debug\net6.0\refint\LINQDemoConsole.dll
+E:\VS\repos\ASP.NET CORE\LINQDemoConsoleApp\LINQDemoConsole\obj\Debug\net6.0\LINQDemoConsole.pdb
+E:\VS\repos\ASP.NET CORE\LINQDemoConsoleApp\LINQDemoConsole\obj\Debug\net6.0\LINQDemoConsole.genruntimeconfig.cache
+E:\VS\repos\ASP.NET CORE\LINQDemoConsoleApp\LINQDemoConsole\obj\Debug\net6.0\ref\LINQDemoConsole.dll
