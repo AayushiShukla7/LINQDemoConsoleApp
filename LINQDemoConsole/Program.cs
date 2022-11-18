@@ -230,6 +230,7 @@ List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
 #region Filtering - Where + Of Type
 
+#region Where
 /* WHERE */
 
 ////Example #1
@@ -287,9 +288,28 @@ List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
 //var methodSyntax = dataSource.Where(employee => employee.Programming.Count > 3 || employee.Name == "Kim").ToList();
 
-/* OF TYPE */
+#endregion
 
+#region OfType
 
+/* OFTYPE (Generic Method) */
+
+var dataSource = new List<object>() { "Adam", "Harry", "Kim", "John", 1, 2, 3, 4, 5 };
+
+var methodSyntax_AllStrings = dataSource.OfType<string>().ToList();
+var methodSyntax_AllIntegers = dataSource.OfType<int>().ToList();
+
+var querySyntax_AllStrings = (from x in dataSource
+                   where x is string
+                   select x).ToList();
+
+var querySyntax_AllIntegers = (from x in dataSource
+                              where x is int
+                              select x).ToList();
+
+var methodSyntax_StrWithCond = dataSource.OfType<string>().Where(x => x.Length > 3).ToList();
+
+#endregion
 
 #endregion
 
