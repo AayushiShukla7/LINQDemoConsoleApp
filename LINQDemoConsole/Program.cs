@@ -294,20 +294,98 @@ List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
 /* OFTYPE (Generic Method) */
 
-var dataSource = new List<object>() { "Adam", "Harry", "Kim", "John", 1, 2, 3, 4, 5 };
+//var dataSource = new List<object>() { "Adam", "Harry", "Kim", "John", 1, 2, 3, 4, 5 };
 
-var methodSyntax_AllStrings = dataSource.OfType<string>().ToList();
-var methodSyntax_AllIntegers = dataSource.OfType<int>().ToList();
+//var methodSyntax_AllStrings = dataSource.OfType<string>().ToList();
+//var methodSyntax_AllIntegers = dataSource.OfType<int>().ToList();
 
-var querySyntax_AllStrings = (from x in dataSource
-                   where x is string
-                   select x).ToList();
+//var querySyntax_AllStrings = (from x in dataSource
+//                   where x is string
+//                   select x).ToList();
 
-var querySyntax_AllIntegers = (from x in dataSource
-                              where x is int
-                              select x).ToList();
+//var querySyntax_AllIntegers = (from x in dataSource
+//                              where x is int
+//                              select x).ToList();
 
-var methodSyntax_StrWithCond = dataSource.OfType<string>().Where(x => x.Length > 3).ToList();
+//var methodSyntax_StrWithCond = dataSource.OfType<string>().Where(x => x.Length > 3).ToList();
+
+#endregion
+
+#endregion
+
+#region Sorting
+
+#region Order By - [Default = ASCENDING]
+
+////Example #1
+//var dataSourceInt = new List<int>() { 5, 12, 13, 1, 7, 53, 100 };
+
+//var querySyntax = (from num in dataSourceInt
+//                   orderby num
+//                   select num).ToList();
+
+//var methodSyntax = dataSourceInt.OrderBy(x => x).ToList();
+
+//var querySyntax_WithCond = (from num in dataSourceInt
+//                            where num > 10
+//                            orderby num
+//                            select num).ToList();
+
+//var methodSyntax_WithCond = dataSourceInt.Where(x => x > 10).OrderBy(x => x).ToList();
+
+//Example #2
+var dataSourceString = new List<string>()
+{
+    "Smith",
+    "Anderson",
+    "Wright",
+    "Michelle",
+    "Thomas",
+    "Allen",
+    "Evans",
+    "Collins"
+};
+
+var querySyntax = (from name in dataSourceString
+                   orderby name
+                   select name).ToList();
+
+var querySyntax_WithCond = (from name in dataSourceString
+                            where name.Length > 6
+                            orderby name
+                            select name).ToList();
+
+foreach (var item in querySyntax_WithCond)
+{
+    Console.WriteLine(item);
+}
+
+Console.WriteLine("--------------------");
+
+var methodSyntax = dataSourceString.OrderBy(str => str).ToList();
+
+var methodSyntax_WithCond = dataSourceString.Where(name => name.Length > 6).OrderBy(str => str).ToList();
+
+foreach (var item in methodSyntax_WithCond)
+{
+    Console.WriteLine(item);
+}
+
+#endregion
+
+#region Order By - Descending
+
+#endregion
+
+#region Then By - [Default = ASCENDING]
+
+#endregion
+
+#region Then By - Descending
+
+#endregion
+
+#region Reverse
 
 #endregion
 
