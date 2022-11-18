@@ -169,7 +169,62 @@ var query = employees.Select((emp, index) => new { Index = index, FullName = emp
 
 #region SelectMany in LINQ
 
+//List<string> strList = new List<string>() { "Nitish", "Kaushik" };
 
+//var methodResult = strList.SelectMany(x => x).ToList();
+
+//var queryResult = (from rec in strList
+//                  from ch in rec
+//                  select ch).ToList();
+
+//var dataSource = new List<Employee>()
+//{
+//    new Employee() { Id=1, Name="Tom", Email="tom123@gmail.com", Programming = new List<string>() {"C#", "PHP","JAVA"} },
+//    new Employee() { Id=2, Name="Kim", Email="kim456@gmail.com", Programming = new List<string>() {"LINQ#", "C#", "MVC"} },
+//    new Employee() { Id=3, Name="Harry", Email="harry789@gmail.com", Programming = new List<string>() {"LINQ", "VB","SQL"} }
+//};
+
+//var methodSyntax = dataSource.SelectMany(emp => emp.Programming).ToList();
+
+//foreach(var item in methodSyntax)
+//{
+//    Console.WriteLine($"Programming - {item}");
+//}
+
+//var querySyntax = (from emp in dataSource
+//                   from skill in emp.Programming
+//                   select skill).ToList();
+
+//foreach (var item in querySyntax)
+//{
+//    Console.WriteLine($"Programming - {item}");
+//}
+
+var dataSource = new List<Employee>() { 
+    new Employee() { Id=1, Name="Tom", Email="tom123@gmail.com", Programming = new List<Techs>() {
+        new Techs() { Technology="C#"},
+        new Techs() { Technology="PHP"},
+        new Techs() { Technology=".Net"}
+    } },
+    new Employee() { Id=1, Name="John", Email="john845@gmail.com", Programming = new List<Techs>() {
+        new Techs() { Technology="C#"},
+        new Techs() { Technology="VB"},
+        new Techs() { Technology="SQL"}
+    } },
+    new Employee() { Id=1, Name="Mark", Email="mark99999@gmail.com", Programming = new List<Techs>() {
+        new Techs() { Technology="LINQ"},
+        new Techs() { Technology="MVC"},
+        new Techs() { Technology="C#"}
+    } },
+    new Employee() { Id=1, Name="Kim", Email="kim654@gmail.com", Programming = new List<Techs>() },
+    new Employee() { Id=1, Name="Adam", Email="adam985@gmail.com", Programming = new List<Techs>() }
+};
+
+var methodQuery = dataSource.SelectMany(emp => emp.Programming).ToList();
+
+var querySyntax = (from emp in dataSource
+                   from pro in emp.Programming
+                   select pro).ToList();
 
 #endregion
 
