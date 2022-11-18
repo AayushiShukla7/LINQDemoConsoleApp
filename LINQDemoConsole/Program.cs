@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using LINQDemoConsole;
+using System.Security.Cryptography;
 
 List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
@@ -85,7 +86,7 @@ List<Employee> employees = new List<Employee>()
 };
 
 var basicQuery = (from emp in employees
-                 select emp).ToList();
+                  select emp).ToList();
 
 var basicMethod = employees.ToList();
 
@@ -94,7 +95,7 @@ var basicPropQuery = (from emp in employees
                       select emp.Id).ToList();
 
 var basicPropQueryWithOp1 = (from emp in employees
-                      select emp.Id + 1).ToList();
+                             select emp.Id + 1).ToList();
 
 var basicPropQueryWithOp2 = (from emp in employees
                              select emp.Id.ToString()).ToList();
@@ -109,10 +110,66 @@ var selectQuery = (from emp in employees
                        Email = emp.Email
                    }).ToList();
 
-foreach (var item in selectQuery)
+//foreach (var item in selectQuery)
+//{
+//    Console.WriteLine($"Id = {item.Id}, Name = {item.Name}, Email = {item.Email}");
+//}
+
+var selectQuery1 = (from emp in employees
+                    select new Student()
+                    {
+                        StudentId = emp.Id,
+                        StudentFullName = emp.Name,
+                        StudentEmail = emp.Email
+                    }).ToList();
+
+//Method Syntax
+var selectMethod = employees.Select(emp => new Student()
 {
-    Console.WriteLine($"Id = {item.Id}, Name = {item.Name}, Email = {item.Email}");
-}
+    StudentId = emp.Id,
+    StudentFullName = emp.Name,
+    StudentEmail = emp.Email
+}).ToList();
+
+//foreach (var item in selectMethod)
+//{
+//    Console.WriteLine($"Id = {item.StudentId}, Name = {item.StudentFullName}, Email = {item.StudentEmail}");
+//}
+
+//Anonymous Syntax
+var anonymousQuery = (from emp in employees
+                      select new
+                      {
+                          CustomId = emp.Id,
+                          CustomName = emp.Name,
+                          CustomEmail = emp.Email
+                      }).ToList();
+
+var anonymousMethod = employees.Select(emp => new
+{
+    CustomId = emp.Id,
+    CustomName = emp.Name,
+    CustomEmail = emp.Email
+}).ToList();
+
+//foreach (var item in anonymousMethod)
+//{
+//    Console.WriteLine($"Id = {item.CustomId}, Name = {item.CustomName}, Email = {item.CustomEmail}");
+//}
+
+//Select By Index
+var query = employees.Select((emp, index) => new { Index = index, FullName = emp.Name }).ToList();
+
+//foreach (var item in query)
+//{
+//    Console.WriteLine($"Index = {item.Index}, FullName = {item.FullName}");
+//}
+
+#endregion
+
+#region SelectMany in LINQ
+
+
 
 #endregion
 
