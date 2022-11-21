@@ -496,68 +496,124 @@ List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 //    Console.WriteLine(item);
 //}
 
-//Example #3 - Order By on Object
+////Example #3 - Order By on Object
+//var dataSourceString = new List<Employee>()
+//{
+//    new Employee()
+//    {
+//        Id =3,
+//        Email="Smith@email.com",
+//        Name="Smith"
+//    },
+//    new Employee()
+//    {
+//        Id =2,
+//        Email="Thomas@email.com",
+//        Name="Thomas"
+//    },
+//    new Employee()
+//    {
+//        Id =1,
+//        Email="Allen@email.com",
+//        Name="Allen"
+//    },
+//    new Employee()
+//    {
+//        Id =4,
+//        Email="Anderson@email.com",
+//        Name="Anderson"
+//    }
+//};
+
+//var querySyntax = (from emp in dataSourceString
+//                   orderby emp.Id descending
+//                   select emp).ToList();
+
+//var querySyntax_WithCond = (from emp in dataSourceString
+//                            where emp.Id < 3
+//                            orderby emp.Name descending
+//                            select emp).ToList();
+
+//foreach (var item in querySyntax_WithCond)
+//{
+//    Console.WriteLine($"{item.Id} : {item.Name} : {item.Email}");
+//}
+
+//Console.WriteLine("--------------------");
+
+//var methodSyntax = dataSourceString.OrderByDescending(emp => emp.Name).ToList();
+
+//var methodSyntax_WithCond = dataSourceString.Where(emp => emp.Id < 3).OrderByDescending(emp => emp.Name).ToList();
+
+//foreach (var item in methodSyntax_WithCond)
+//{
+//    Console.WriteLine($"{item.Id} : {item.Name} : {item.Email}");
+//}
+
+#endregion
+
+#region Then By - [Default = ASCENDING] & Then By - Descending
+
+//Subsequent sorting (based on any number of properties) - SORTING IN LEVELS
+
 var dataSourceString = new List<Employee>()
 {
     new Employee()
     {
         Id =3,
         Email="Smith@email.com",
-        Name="Smith"
+        FirstName="Smith",
+        LastName="Foo"
     },
     new Employee()
     {
         Id =2,
         Email="Thomas@email.com",
-        Name="Thomas"
+        FirstName="Thomas",
+        LastName="Mark"
     },
     new Employee()
     {
         Id =1,
         Email="Allen@email.com",
-        Name="Allen"
+        FirstName="Allen",
+        LastName="Mark"
     },
     new Employee()
     {
         Id =4,
         Email="Anderson@email.com",
-        Name="Anderson"
+        FirstName="Anderson",
+        LastName="Foo"
     }
 };
 
 var querySyntax = (from emp in dataSourceString
-                   orderby emp.Id descending
+                   orderby emp.FirstName descending, emp.LastName
                    select emp).ToList();
 
+//THEN BY - Descending
 var querySyntax_WithCond = (from emp in dataSourceString
-                            where emp.Id < 3
-                            orderby emp.Name descending
+                            where emp.Id > 2
+                            orderby emp.FirstName descending,               emp.LastName descending
                             select emp).ToList();
 
 foreach (var item in querySyntax_WithCond)
 {
-    Console.WriteLine($"{item.Id} : {item.Name} : {item.Email}");
+    Console.WriteLine($"{item.Id} : {item.FirstName} : {item.LastName} : {item.Email}");
 }
 
 Console.WriteLine("--------------------");
 
-var methodSyntax = dataSourceString.OrderByDescending(emp => emp.Name).ToList();
+var methodSyntax = dataSourceString.OrderBy(emp => emp.FirstName).ThenBy(emp => emp.LastName).ToList();
 
-var methodSyntax_WithCond = dataSourceString.Where(emp => emp.Id < 3).OrderByDescending(emp => emp.Name).ToList();
+//THEN BY - Descending
+var methodSyntax_WithCond = dataSourceString.Where(emp => emp.Id > 2).OrderBy(emp => emp.FirstName).ThenBy(emp => emp.LastName).ThenByDescending(emp => emp.Id).ToList();
 
 foreach (var item in methodSyntax_WithCond)
 {
-    Console.WriteLine($"{item.Id} : {item.Name} : {item.Email}");
+    Console.WriteLine($"{item.Id} : {item.FirstName} : {item.LastName} : {item.Email}");
 }
-
-#endregion
-
-#region Then By - [Default = ASCENDING]
-
-#endregion
-
-#region Then By - Descending
-
 
 #endregion
 

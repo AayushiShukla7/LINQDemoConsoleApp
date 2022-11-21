@@ -1,10 +1,14 @@
 ﻿class Employee
 {
     public int Id { get; set; }
-    public string Name { get; set; }
+    
+    //public string Name { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
     public string Email { get; set; }
+
     //public List<string> Programming { get; set; }
-    public List<Techs> Programming { get; set; }
+    //public List<Techs> Programming { get; set; }
 }
 
 class Techs
