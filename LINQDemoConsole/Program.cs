@@ -317,7 +317,7 @@ List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
 #region Order By - [Default = ASCENDING]
 
-////Example #1
+////Example #1 - Order By on List<int>
 //var dataSourceInt = new List<int>() { 5, 12, 13, 1, 7, 53, 100 };
 
 //var querySyntax = (from num in dataSourceInt
@@ -333,47 +333,222 @@ List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
 //var methodSyntax_WithCond = dataSourceInt.Where(x => x > 10).OrderBy(x => x).ToList();
 
-//Example #2
-var dataSourceString = new List<string>()
-{
-    "Smith",
-    "Anderson",
-    "Wright",
-    "Michelle",
-    "Thomas",
-    "Allen",
-    "Evans",
-    "Collins"
-};
+////Example #2 - Order By on List<String>
+//var dataSourceString = new List<string>()
+//{
+//    "Smith",
+//    "Anderson",
+//    "Wright",
+//    "Michelle",
+//    "Thomas",
+//    "Allen",
+//    "Evans",
+//    "Collins"
+//};
 
-var querySyntax = (from name in dataSourceString
-                   orderby name
-                   select name).ToList();
+//var querySyntax = (from name in dataSourceString
+//                   orderby name
+//                   select name).ToList();
 
-var querySyntax_WithCond = (from name in dataSourceString
-                            where name.Length > 6
-                            orderby name
-                            select name).ToList();
+//var querySyntax_WithCond = (from name in dataSourceString
+//                            where name.Length > 6
+//                            orderby name
+//                            select name).ToList();
 
-foreach (var item in querySyntax_WithCond)
-{
-    Console.WriteLine(item);
-}
+//foreach (var item in querySyntax_WithCond)
+//{
+//    Console.WriteLine(item);
+//}
 
-Console.WriteLine("--------------------");
+//Console.WriteLine("--------------------");
 
-var methodSyntax = dataSourceString.OrderBy(str => str).ToList();
+//var methodSyntax = dataSourceString.OrderBy(str => str).ToList();
 
-var methodSyntax_WithCond = dataSourceString.Where(name => name.Length > 6).OrderBy(str => str).ToList();
+//var methodSyntax_WithCond = dataSourceString.Where(name => name.Length > 6).OrderBy(str => str).ToList();
 
-foreach (var item in methodSyntax_WithCond)
-{
-    Console.WriteLine(item);
-}
+//foreach (var item in methodSyntax_WithCond)
+//{
+//    Console.WriteLine(item);
+//}
+
+////Example #3 - Order By on Object
+//var dataSourceString = new List<Employee>()
+//{
+//    new Employee()
+//    {
+//        Id =3,
+//        Email="Smith@email.com",
+//        Name="Smith"
+//    },
+//    new Employee()
+//    {
+//        Id =2,
+//        Email="Thomas@email.com",
+//        Name="Thomas"
+//    },
+//    new Employee()
+//    {
+//        Id =1,
+//        Email="Allen@email.com",
+//        Name="Allen"
+//    },
+//    new Employee()
+//    {
+//        Id =4,
+//        Email="Anderson@email.com",
+//        Name="Anderson"
+//    }
+//};
+
+//var querySyntax = (from emp in dataSourceString
+//                   orderby emp.Id
+//                   select emp).ToList();
+
+//var querySyntax_WithCond = (from emp in dataSourceString
+//                            where emp.Id > 2
+//                            orderby emp.Name
+//                            select emp).ToList();
+
+//foreach (var item in querySyntax_WithCond)
+//{
+//    //Console.WriteLine(item.Id + " : " + item.Name + " : " + item.Email);
+//    Console.WriteLine($"{item.Id} : {item.Name} : {item.Email}");
+//}
+
+//Console.WriteLine("--------------------");
+
+//var methodSyntax = dataSourceString.OrderBy(emp => emp.Name).ToList();
+
+//var methodSyntax_WithCond = dataSourceString.Where(emp => emp.Id > 2).OrderBy(emp => emp.Name).ToList();
+
+//foreach (var item in methodSyntax_WithCond)
+//{
+//    Console.WriteLine($"{item.Id} : {item.Name} : {item.Email}");
+//}
 
 #endregion
 
 #region Order By - Descending
+
+////Example #1 - Order By on List<int>
+//var dataSourceInt = new List<int>() { 5, 12, 13, 1, 7, 53, 100 };
+
+//var querySyntax = (from num in dataSourceInt
+//                   orderby num descending
+//                   select num).ToList();
+
+//var methodSyntax = dataSourceInt.OrderByDescending(x => x).ToList();
+
+//var querySyntax_WithCond = (from num in dataSourceInt
+//                            where num > 10
+//                            orderby num descending
+//                            select num).ToList();
+
+//foreach (var item in querySyntax)
+//{
+//    Console.WriteLine(item);
+//}
+
+//Console.WriteLine("--------------------");
+
+//var methodSyntax_WithCond = dataSourceInt.Where(x => x > 10).OrderByDescending(x => x).ToList();
+
+//foreach (var item in methodSyntax_WithCond)
+//{
+//    Console.WriteLine(item);
+//}
+
+////Example #2 - Order By on List<String>
+//var dataSourceString = new List<string>()
+//{
+//    "Smith",
+//    "Anderson",
+//    "Wright",
+//    "Michelle",
+//    "Thomas",
+//    "Allen",
+//    "Evans",
+//    "Collins"
+//};
+
+//var querySyntax = (from name in dataSourceString
+//                   orderby name descending
+//                   select name).ToList();
+
+//var querySyntax_WithCond = (from name in dataSourceString
+//                            where name.Length > 6
+//                            orderby name descending
+//                            select name).ToList();
+
+//foreach (var item in querySyntax_WithCond)
+//{
+//    Console.WriteLine(item);
+//}
+
+//Console.WriteLine("--------------------");
+
+//var methodSyntax = dataSourceString.OrderByDescending(str => str).ToList();
+
+//var methodSyntax_WithCond = dataSourceString.Where(name => name.Length > 6).OrderByDescending(str => str).ToList();
+
+//foreach (var item in methodSyntax_WithCond)
+//{
+//    Console.WriteLine(item);
+//}
+
+//Example #3 - Order By on Object
+var dataSourceString = new List<Employee>()
+{
+    new Employee()
+    {
+        Id =3,
+        Email="Smith@email.com",
+        Name="Smith"
+    },
+    new Employee()
+    {
+        Id =2,
+        Email="Thomas@email.com",
+        Name="Thomas"
+    },
+    new Employee()
+    {
+        Id =1,
+        Email="Allen@email.com",
+        Name="Allen"
+    },
+    new Employee()
+    {
+        Id =4,
+        Email="Anderson@email.com",
+        Name="Anderson"
+    }
+};
+
+var querySyntax = (from emp in dataSourceString
+                   orderby emp.Id descending
+                   select emp).ToList();
+
+var querySyntax_WithCond = (from emp in dataSourceString
+                            where emp.Id < 3
+                            orderby emp.Name descending
+                            select emp).ToList();
+
+foreach (var item in querySyntax_WithCond)
+{
+    Console.WriteLine($"{item.Id} : {item.Name} : {item.Email}");
+}
+
+Console.WriteLine("--------------------");
+
+var methodSyntax = dataSourceString.OrderByDescending(emp => emp.Name).ToList();
+
+var methodSyntax_WithCond = dataSourceString.Where(emp => emp.Id < 3).OrderByDescending(emp => emp.Name).ToList();
+
+foreach (var item in methodSyntax_WithCond)
+{
+    Console.WriteLine($"{item.Id} : {item.Name} : {item.Email}");
+}
 
 #endregion
 
@@ -382,6 +557,7 @@ foreach (var item in methodSyntax_WithCond)
 #endregion
 
 #region Then By - Descending
+
 
 #endregion
 
