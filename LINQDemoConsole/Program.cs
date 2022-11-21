@@ -1,7 +1,8 @@
 ﻿using LINQDemoConsole;
 using System.Security.Cryptography;
+using System.Linq;
 
-List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+//List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
 #region Query Syntax 
 
@@ -556,68 +557,133 @@ List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
 //Subsequent sorting (based on any number of properties) - SORTING IN LEVELS
 
-var dataSourceString = new List<Employee>()
-{
-    new Employee()
-    {
-        Id =3,
-        Email="Smith@email.com",
-        FirstName="Smith",
-        LastName="Foo"
-    },
-    new Employee()
-    {
-        Id =2,
-        Email="Thomas@email.com",
-        FirstName="Thomas",
-        LastName="Mark"
-    },
-    new Employee()
-    {
-        Id =1,
-        Email="Allen@email.com",
-        FirstName="Allen",
-        LastName="Mark"
-    },
-    new Employee()
-    {
-        Id =4,
-        Email="Anderson@email.com",
-        FirstName="Anderson",
-        LastName="Foo"
-    }
-};
+//var dataSourceString = new List<Employee>()
+//{
+//    new Employee()
+//    {
+//        Id =3,
+//        Email="Smith@email.com",
+//        FirstName="Smith",
+//        LastName="Foo"
+//    },
+//    new Employee()
+//    {
+//        Id =2,
+//        Email="Thomas@email.com",
+//        FirstName="Thomas",
+//        LastName="Mark"
+//    },
+//    new Employee()
+//    {
+//        Id =1,
+//        Email="Allen@email.com",
+//        FirstName="Allen",
+//        LastName="Mark"
+//    },
+//    new Employee()
+//    {
+//        Id =4,
+//        Email="Anderson@email.com",
+//        FirstName="Anderson",
+//        LastName="Foo"
+//    }
+//};
 
-var querySyntax = (from emp in dataSourceString
-                   orderby emp.FirstName descending, emp.LastName
-                   select emp).ToList();
+//var querySyntax = (from emp in dataSourceString
+//                   orderby emp.FirstName descending, emp.LastName
+//                   select emp).ToList();
 
-//THEN BY - Descending
-var querySyntax_WithCond = (from emp in dataSourceString
-                            where emp.Id > 2
-                            orderby emp.FirstName descending,               emp.LastName descending
-                            select emp).ToList();
+////THEN BY - Descending
+//var querySyntax_WithCond = (from emp in dataSourceString
+//                            where emp.Id > 2
+//                            orderby emp.FirstName descending,               emp.LastName descending
+//                            select emp).ToList();
 
-foreach (var item in querySyntax_WithCond)
-{
-    Console.WriteLine($"{item.Id} : {item.FirstName} : {item.LastName} : {item.Email}");
-}
+//foreach (var item in querySyntax_WithCond)
+//{
+//    Console.WriteLine($"{item.Id} : {item.FirstName} : {item.LastName} : {item.Email}");
+//}
 
-Console.WriteLine("--------------------");
+//Console.WriteLine("--------------------");
 
-var methodSyntax = dataSourceString.OrderBy(emp => emp.FirstName).ThenBy(emp => emp.LastName).ToList();
+//var methodSyntax = dataSourceString.OrderBy(emp => emp.FirstName).ThenBy(emp => emp.LastName).ToList();
 
-//THEN BY - Descending
-var methodSyntax_WithCond = dataSourceString.Where(emp => emp.Id > 2).OrderBy(emp => emp.FirstName).ThenBy(emp => emp.LastName).ThenByDescending(emp => emp.Id).ToList();
+////THEN BY - Descending
+//var methodSyntax_WithCond = dataSourceString.Where(emp => emp.Id > 2).OrderBy(emp => emp.FirstName).ThenBy(emp => emp.LastName).ThenByDescending(emp => emp.Id).ToList();
 
-foreach (var item in methodSyntax_WithCond)
-{
-    Console.WriteLine($"{item.Id} : {item.FirstName} : {item.LastName} : {item.Email}");
-}
+//foreach (var item in methodSyntax_WithCond)
+//{
+//    Console.WriteLine($"{item.Id} : {item.FirstName} : {item.LastName} : {item.Email}");
+//}
 
 #endregion
 
 #region Reverse
+
+//Available under 2 namespces: System.Linq (Non-Generic) and System.Collections.Generic (For Generic)
+//No permanent changes are made to the data source, just the output is affected.
+
+////Example #1 - Order By on integer array
+//var rollNums = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+//var querySyntax = (from num in rollNums
+//                   select num).Reverse();
+
+//var methodSyntax = rollNums.Reverse();
+
+
+//foreach (var item in querySyntax)
+//{
+//    Console.WriteLine(item);
+//}
+
+//Console.WriteLine("--------------------");
+
+//Example #2 - Order By on List<String>
+var names = new List<string>()
+{
+    "Smith",
+    "Anderson",
+    "Wright",
+    "Michelle",
+    "Thomas",
+    "Allen",
+    "Evans",
+    "Collins"
+};
+
+//var querySyntax = (from name in names
+//                   select name).Reverse();
+
+//foreach (var item in querySyntax)
+//{
+//    Console.WriteLine(item);
+//}
+
+//Console.WriteLine("--------------------");
+
+foreach (var item in names)
+{
+    Console.WriteLine(item);
+}
+Console.WriteLine("--------------------");
+
+//var methodSyntax = names.Reverse();  //This throws an error! User the one from Syetm.Collections.Generic (no return needed)
+names.Reverse();    //Generic way of reversing
+
+foreach (var item in names)
+{
+    Console.WriteLine(item);
+}
+Console.WriteLine("--------------------");
+
+var reversed_Enumerable = names.AsEnumerable().Reverse();  //OR, we could use this syntax [System.Linq Reverse() expect an object of Ienumerable/IQueryable type]
+var reversed_Queryable = names.AsQueryable().Reverse();
+
+foreach (var item in reversed_Enumerable)
+{
+    Console.WriteLine(item);
+}
 
 #endregion
 
