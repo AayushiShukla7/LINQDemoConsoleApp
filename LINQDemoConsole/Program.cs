@@ -693,7 +693,24 @@ using System.Linq;
 
 // All, Any and Contains
 
+#region All
 
+Student[] students =
+{
+    new Student { Name="Kim", Marks=90},
+    new Student { Name="John", Marks=80},
+    new Student { Name="Lee", Marks=75}
+};
+
+#endregion
+
+#region Any
+
+#endregion
+
+#region Contains
+
+#endregion
 
 #endregion 
 

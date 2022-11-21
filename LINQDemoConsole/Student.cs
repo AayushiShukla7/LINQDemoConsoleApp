@@ -8,8 +8,11 @@ namespace LINQDemoConsole
 {
     public class Student
     {
-        public int StudentId { get; set; }
-        public string StudentFullName { get; set; }
-        public string StudentEmail { get; set; }
+        //public int StudentId { get; set; }
+        //public string StudentFullName { get; set; }
+        //public string StudentEmail { get; set; }
+
+        public string Name { get; set; }
+        public int Marks { get; set; }
     }
 }
