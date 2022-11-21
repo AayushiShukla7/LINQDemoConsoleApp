@@ -639,18 +639,18 @@ using System.Linq;
 
 //Console.WriteLine("--------------------");
 
-//Example #2 - Order By on List<String>
-var names = new List<string>()
-{
-    "Smith",
-    "Anderson",
-    "Wright",
-    "Michelle",
-    "Thomas",
-    "Allen",
-    "Evans",
-    "Collins"
-};
+////Example #2 - Order By on List<String>
+//var names = new List<string>()
+//{
+//    "Smith",
+//    "Anderson",
+//    "Wright",
+//    "Michelle",
+//    "Thomas",
+//    "Allen",
+//    "Evans",
+//    "Collins"
+//};
 
 //var querySyntax = (from name in names
 //                   select name).Reverse();
@@ -662,32 +662,72 @@ var names = new List<string>()
 
 //Console.WriteLine("--------------------");
 
-foreach (var item in names)
-{
-    Console.WriteLine(item);
-}
-Console.WriteLine("--------------------");
+//foreach (var item in names)
+//{
+//    Console.WriteLine(item);
+//}
+//Console.WriteLine("--------------------");
 
-//var methodSyntax = names.Reverse();  //This throws an error! User the one from Syetm.Collections.Generic (no return needed)
-names.Reverse();    //Generic way of reversing
+////var methodSyntax = names.Reverse();  //This throws an error! User the one from Syetm.Collections.Generic (no return needed)
+//names.Reverse();    //Generic way of reversing
 
-foreach (var item in names)
-{
-    Console.WriteLine(item);
-}
-Console.WriteLine("--------------------");
+//foreach (var item in names)
+//{
+//    Console.WriteLine(item);
+//}
+//Console.WriteLine("--------------------");
 
-var reversed_Enumerable = names.AsEnumerable().Reverse();  //OR, we could use this syntax [System.Linq Reverse() expect an object of Ienumerable/IQueryable type]
-var reversed_Queryable = names.AsQueryable().Reverse();
+//var reversed_Enumerable = names.AsEnumerable().Reverse();  //OR, we could use this syntax [System.Linq Reverse() expect an object of Ienumerable/IQueryable type]
+//var reversed_Queryable = names.AsQueryable().Reverse();
 
-foreach (var item in reversed_Enumerable)
-{
-    Console.WriteLine(item);
-}
+//foreach (var item in reversed_Enumerable)
+//{
+//    Console.WriteLine(item);
+//}
+
+#endregion
 
 #endregion
 
-#endregion
+#region Quantifier Operations
+
+// All, Any and Contains
+
+
+
+#endregion 
+
+#region Set Operations
+
+// Distinct, Except, Intersect and Union
+
+
+
+#endregion 
+
+#region Partitioning Operations
+
+// Take, TakeWhile, Skip and SkipWhile
+
+
+
+#endregion 
+
+#region Join Operations
+
+// Inner Join, Group Join and Left Join
+
+
+
+#endregion 
+
+#region Element Operations
+
+// ElementAt(), ElementAtOrDefault(), First(), FirstOrDefault(), Last(), LastOrDefault(), Single() and SingleOrDefault()
+
+
+
+#endregion 
 
 #endregion
 
