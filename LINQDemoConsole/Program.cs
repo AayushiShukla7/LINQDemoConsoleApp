@@ -697,14 +697,48 @@ using System.Linq;
 
 Student[] students =
 {
-    new Student { Name="Kim", Marks=90},
-    new Student { Name="John", Marks=80},
-    new Student { Name="Lee", Marks=75}
+    new Student { Name="Kim", Marks=90,
+        Subject = new List<Subject>() {
+        new Subject() { SubjectName="Math", SubjectMarks=75 },
+        new Subject() { SubjectName="English", SubjectMarks=80 },
+        new Subject() { SubjectName="Art", SubjectMarks=86 },
+        new Subject() { SubjectName="History", SubjectMarks=91 }
+    }},
+    new Student { Name="John", Marks=80,
+        Subject = new List<Subject>() {
+        new Subject() { SubjectName="Math", SubjectMarks=89 },
+        new Subject() { SubjectName="English", SubjectMarks=91 },
+        new Subject() { SubjectName="Art", SubjectMarks=90 },
+        new Subject() { SubjectName="History", SubjectMarks=91 }
+    }},
+    new Student { Name="Lee", Marks=75,
+        Subject = new List<Subject>() {
+        new Subject() { SubjectName="Math", SubjectMarks=75 },
+        new Subject() { SubjectName="English", SubjectMarks=80 },
+        new Subject() { SubjectName="Art", SubjectMarks=60 },
+        new Subject() { SubjectName="History", SubjectMarks=91 }
+    }}
 };
+
+//Basic Examples
+var query = students.All(stu => stu.Marks > 70);    //True
+var query1 = students.All(stu => stu.Marks > 75);   //False
+
+var query3 = (from student in students
+              select student).All(x => x.Marks > 70);   //True
+
+//Complex example
+var method_syntax = students.Where(std => std.Subject.All(x => x.SubjectMarks > 70)).Select(std => std).ToList();
+
+var query_syntax = (from std in students
+                    where std.Subject.All(x => x.SubjectMarks > 70)
+                    select std).ToList();
 
 #endregion
 
 #region Any
+
+
 
 #endregion
 
@@ -712,7 +746,7 @@ Student[] students =
 
 #endregion
 
-#endregion 
+#endregion
 
 #region Set Operations
 
@@ -720,7 +754,7 @@ Student[] students =
 
 
 
-#endregion 
+#endregion
 
 #region Partitioning Operations
 
@@ -728,7 +762,7 @@ Student[] students =
 
 
 
-#endregion 
+#endregion
 
 #region Join Operations
 
@@ -736,7 +770,7 @@ Student[] students =
 
 
 
-#endregion 
+#endregion
 
 #region Element Operations
 
@@ -744,7 +778,7 @@ Student[] students =
 
 
 
-#endregion 
+#endregion
 
 #endregion
 

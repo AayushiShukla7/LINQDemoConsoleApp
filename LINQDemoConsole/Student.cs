@@ -14,5 +14,6 @@ namespace LINQDemoConsole
 
         public string Name { get; set; }
         public int Marks { get; set; }
+        public List<Subject> Subject { get; set; }
     }
 }
