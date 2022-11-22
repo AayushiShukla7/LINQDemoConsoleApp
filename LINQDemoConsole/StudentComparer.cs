@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace LINQDemoConsole
 {
+    // Custom Comparer class with IEqualityComparer<T> implementation
     public class StudentComparer : IEqualityComparer<Student>
     {
         public bool Equals(Student? x, Student? y)

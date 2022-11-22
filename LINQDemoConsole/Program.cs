@@ -841,30 +841,69 @@ using System.Runtime.CompilerServices;
 //var qs = (from num in numbers
 //          select num).Distinct().ToList();
 
-// Complex Example
-List<Student> students = new List<Student>()
-{
-    new Student() { Id = 1, Name = "Kim" },
-    new Student() { Id = 2, Name = "John" },
-    new Student() { Id = 1, Name = "Kim" },
-    new Student() { Id = 4, Name = "John" }
-};
+//// Complex Example
+//List<Student> students = new List<Student>()
+//{
+//    new Student() { Id = 1, Name = "Kim" },
+//    new Student() { Id = 2, Name = "John" },
+//    new Student() { Id = 1, Name = "Kim" },
+//    new Student() { Id = 4, Name = "John" }
+//};
 
-// Before implementing IEquatable<T> interface => 4 records
-// After implementing IEquatable<T> interface => 3 records (only unique objects)
-var ms_notWorkingBecauseRef = students.Distinct().ToList();
+//// Before implementing IEquatable<T> interface => 4 records
+//// After implementing IEquatable<T> interface => 3 records (only unique objects)
+//var ms_notWorkingBecauseRef = students.Distinct().ToList();
 
-var ms = students.Select(x => x.Name).Distinct().ToList();
+//var ms = students.Select(x => x.Name).Distinct().ToList();
 
-var ms_Comparer = students.Distinct(new StudentComparer()).ToList();
+//var ms_Comparer = students.Distinct(new StudentComparer()).ToList();
 
 #endregion
 
 #region Except - Returns all the elements from one data source that do not exist in second data source
 
+////Simple Example - With List<string>
+//List<string> dataSource1 = new List<string>() { "A", "B", "C", "D" };
+//List<string> dataSource2 = new List<string>() { "C", "D", "E", "F" };
+
+//var ms = dataSource1.Except(dataSource2).ToList();
+
+// Complex Example
+List<Student> students = new List<Student>()
+{
+    new Student() { Id = 1, Name = "Kim" },
+    new Student() { Id = 2, Name = "John" },
+    new Student() { Id = 3, Name = "Kim" },
+    new Student() { Id = 4, Name = "Jill" },
+    //new Student() { Id = 5, Name = "Mark" }
+};
+
+List<Student> students1 = new List<Student>()
+{
+    new Student() { Id = 1, Name = "Kim" },
+    new Student() { Id = 2, Name = "John" },
+    new Student() { Id = 5, Name = "Kim" },
+    new Student() { Id = 6, Name = "Jill" }
+};
+
+// Comparing one property of each of the objects
+var ms = students.Select(x => x.Name).Except(students1.Select(x => x.Name)).ToList();
+
+// Comparing the whole object - WORKS only with IEquatable<Student> implementation present!
+var ms_WithComparerImpl = students.Except(students1).ToList();
+
+// Using Anonymous Method
+var ms_fixed = students.Select(x => new { x.Id, x.Name }).Except(students1.Select(x => new { x.Id, x.Name })).ToList();
+
+var qs = (from std in students
+          select std).Except(students1, new StudentComparer()).ToList();
+
 #endregion
 
 #region Intersect - Returns all the elements which exist in both the data source
+
+
+Console.ReadLine();
 
 #endregion
 
