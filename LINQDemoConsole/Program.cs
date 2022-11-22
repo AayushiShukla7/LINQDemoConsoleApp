@@ -800,29 +800,29 @@ using System.Runtime.CompilerServices;
 //var isExist_Query = (from std in students
 //                     select std).Contains("Kim");
 
-//Complex Examples
-List<Student> students = new List<Student>()
-{
-    new Student() { Id = 1, Name = "Kim" },
-    new Student() { Id = 2, Name = "John" }
-};
+////Complex Examples
+//List<Student> students = new List<Student>()
+//{
+//    new Student() { Id = 1, Name = "Kim" },
+//    new Student() { Id = 2, Name = "John" }
+//};
 
-var isExist_Method = students.Contains(new Student() { Id = 1, Name = "Kim" }); //Should be True but actually is False!! Why? - Because NO 2 references of the same type are the SAME
+//var isExist_Method = students.Contains(new Student() { Id = 1, Name = "Kim" }); //Should be True but actually is False!! Why? - Because NO 2 references of the same type are the SAME
 
-//But this works fine
-var std = new Student() { Id = 1, Name = "Kim" };
-students.Add(std);
+////But this works fine
+//var std = new Student() { Id = 1, Name = "Kim" };
+//students.Add(std);
 
-var isExist_Method1 = students.Contains(std);    //True now! Because the same reference is added and checked.
+//var isExist_Method1 = students.Contains(std);    //True now! Because the same reference is added and checked.
 
-// CASE - DIFFERENT REFERENCES BUT SAME VALUES.
-// SOLUTION - IEqualityComparer
-var comparer = new StudentComparer();
+//// CASE - DIFFERENT REFERENCES BUT SAME VALUES.
+//// SOLUTION - IEqualityComparer
+//var comparer = new StudentComparer();
 
-var isExist_method = students.Contains(new Student() { Id = 1, Name = "Kim" }, comparer);  //True this time! Why? - Because of comparer
+//var isExist_method = students.Contains(new Student() { Id = 1, Name = "Kim" }, comparer);  //True this time! Why? - Because of comparer
 
-var isExist_query = (from student in students
-                     select student).Contains(new Student() { Id = 1, Name = "Kim" }, comparer);    //True
+//var isExist_query = (from student in students
+//                     select student).Contains(new Student() { Id = 1, Name = "Kim" }, comparer);    //True
 
 #endregion
 
@@ -832,7 +832,23 @@ var isExist_query = (from student in students
 
 // Distinct, Except, Intersect and Union
 
+#region Distinct - Removes duplicate values from data source
 
+
+
+#endregion
+
+#region Except - Returns all the elements from one data source that do not exist in second data source
+
+#endregion
+
+#region Intersect - Returns all the elements which exist in both the data source
+
+#endregion
+
+#region Union - Returns all the elements that appear in either of two data sources
+
+#endregion
 
 #endregion
 
