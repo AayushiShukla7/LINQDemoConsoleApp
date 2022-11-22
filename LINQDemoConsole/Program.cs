@@ -1007,7 +1007,6 @@ using System.Runtime.InteropServices;
 //                   select num).Take(4).ToList();
 
 #endregion
-
 #region TakeWhile - Returns 'n' number of records from the start of the data source until a specified condition is true. Once condition fails, TakeWhile quits.
 
 ////Example #1
@@ -1023,24 +1022,43 @@ using System.Runtime.InteropServices;
 //var qs = (from n in list
 //          select n).TakeWhile(x => x < 7).ToArray();
 
-//Example #3
-List<string> names = new List<string>() { "Kim", "John", "Mark", "Ada", "Nitish" };
+////Example #3
+//List<string> names = new List<string>() { "Kim", "John", "Mark", "Ada", "Nitish" };
 
-var ms = names.TakeWhile((name, index) => name.Length > index).ToList();
+//var ms = names.TakeWhile((name, index) => name.Length > index).ToList();
 
-var qs = (from n in names
-         select n).TakeWhile((name, index) => name.Length > index).ToList();
+//var qs = (from n in names
+//         select n).TakeWhile((name, index) => name.Length > index).ToList();
 
 #endregion
+#region Skip - Skips first 'n' elements from the start of the data source and returns the remaining elements
 
-#region Skip
+//Example #1
+List<int> list = new List<int>() { 1, 2, 6, 7, 8, 9, 10, 3, 4, 5 };
 
+var ms = list.Skip(2).ToArray();
+var ms_withCond = list.Where(x => x >= 4).Skip(2).ToArray();
 
-Console.ReadLine();
+var qs = (from n in list
+          select n).Skip(2).ToList();
+var qs_withCond = (from n in list
+                   where n >= 5
+                   select n).Skip(2).ToList();
+
+////Example #2
+//List<string> names = new List<string>() { "Kim", "John", "Mark", "Ada", "Nitish" };
+
+//var ms = names.Skip(3).ToList();
+
+//var qs = (from n in names
+//          select n).Skip(2).ToArray();
 
 #endregion
 
 #region SkipWhile
+
+
+Console.ReadLine();
 
 #endregion
 
