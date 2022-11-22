@@ -868,14 +868,55 @@ using System.Runtime.CompilerServices;
 
 //var ms = dataSource1.Except(dataSource2).ToList();
 
+//// Complex Example
+//List<Student> students = new List<Student>()
+//{
+//    new Student() { Id = 1, Name = "Kim" },
+//    new Student() { Id = 2, Name = "John" },
+//    new Student() { Id = 3, Name = "Kim" },
+//    new Student() { Id = 4, Name = "Jill" },
+//    //new Student() { Id = 5, Name = "Mark" }
+//};
+
+//List<Student> students1 = new List<Student>()
+//{
+//    new Student() { Id = 1, Name = "Kim" },
+//    new Student() { Id = 2, Name = "John" },
+//    new Student() { Id = 5, Name = "Kim" },
+//    new Student() { Id = 6, Name = "Jill" }
+//};
+
+//// Comparing one property of each of the objects
+//var ms = students.Select(x => x.Name).Except(students1.Select(x => x.Name)).ToList();
+
+//// Comparing the whole object - WORKS only with IEquatable<Student> implementation present!
+//var ms_WithComparerImpl = students.Except(students1).ToList();
+
+//// Using Anonymous Method
+//var ms_fixed = students.Select(x => new { x.Id, x.Name }).Except(students1.Select(x => new { x.Id, x.Name })).ToList();
+
+//var qs = (from std in students
+//          select std).Except(students1, new StudentComparer()).ToList();
+
+#endregion
+
+#region Intersect - Returns all the elements which exist in both the data source
+
+////Simple Example
+//List<string> dataSource1 = new List<string>() { "A", "B", "C", "D" };
+//List<string> dataSource2 = new List<string>() { "C", "D", "E", "F" };
+
+//var ms = dataSource1.Intersect(dataSource2).ToList();
+//var qs = (from data in dataSource1
+//          select data).Intersect(dataSource2).ToList();
+
 // Complex Example
 List<Student> students = new List<Student>()
 {
     new Student() { Id = 1, Name = "Kim" },
     new Student() { Id = 2, Name = "John" },
     new Student() { Id = 3, Name = "Kim" },
-    new Student() { Id = 4, Name = "Jill" },
-    //new Student() { Id = 5, Name = "Mark" }
+    new Student() { Id = 4, Name = "Jill" }
 };
 
 List<Student> students1 = new List<Student>()
@@ -886,28 +927,25 @@ List<Student> students1 = new List<Student>()
     new Student() { Id = 6, Name = "Jill" }
 };
 
-// Comparing one property of each of the objects
-var ms = students.Select(x => x.Name).Except(students1.Select(x => x.Name)).ToList();
+// Comparing one property of each of the objects (Ignores duplicates)
+var ms = students.Select(x => x.Name).Intersect(students1.Select(x => x.Name)).ToList();
 
 // Comparing the whole object - WORKS only with IEquatable<Student> implementation present!
-var ms_WithComparerImpl = students.Except(students1).ToList();
+var ms_WithComparerImpl = students.Intersect(students1).ToList();
 
-// Using Anonymous Method
+// NO IEquatable<Student> Scenario: #1 - Using Anonymous Method
 var ms_fixed = students.Select(x => new { x.Id, x.Name }).Except(students1.Select(x => new { x.Id, x.Name })).ToList();
 
+// NO IEquatable<Student> Scenario: #2 - Using Custom Comparer
 var qs = (from std in students
-          select std).Except(students1, new StudentComparer()).ToList();
-
-#endregion
-
-#region Intersect - Returns all the elements which exist in both the data source
-
-
-Console.ReadLine();
+          select std).Intersect(students1, new StudentComparer()).ToList();
 
 #endregion
 
 #region Union - Returns all the elements that appear in either of two data sources
+
+
+Console.ReadLine();
 
 #endregion
 
