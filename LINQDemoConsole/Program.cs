@@ -1,6 +1,7 @@
 ﻿using LINQDemoConsole;
 using System.Security.Cryptography;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 //List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
@@ -693,8 +694,70 @@ using System.Linq;
 
 // All, Any and Contains
 
-#region All
+#region All - All the elements of the data source must justify the condition
 
+//Student[] students =
+//{
+//    new Student { Name="Kim", Marks=90,
+//        Subject = new List<Subject>() {
+//        new Subject() { SubjectName="Math", SubjectMarks=75 },
+//        new Subject() { SubjectName="English", SubjectMarks=80 },
+//        new Subject() { SubjectName="Art", SubjectMarks=86 },
+//        new Subject() { SubjectName="History", SubjectMarks=91 }
+//    }},
+//    new Student { Name="John", Marks=80,
+//        Subject = new List<Subject>() {
+//        new Subject() { SubjectName="Math", SubjectMarks=89 },
+//        new Subject() { SubjectName="English", SubjectMarks=91 },
+//        new Subject() { SubjectName="Art", SubjectMarks=90 },
+//        new Subject() { SubjectName="History", SubjectMarks=91 }
+//    }},
+//    new Student { Name="Lee", Marks=75,
+//        Subject = new List<Subject>() {
+//        new Subject() { SubjectName="Math", SubjectMarks=75 },
+//        new Subject() { SubjectName="English", SubjectMarks=80 },
+//        new Subject() { SubjectName="Art", SubjectMarks=60 },
+//        new Subject() { SubjectName="History", SubjectMarks=91 }
+//    }}
+//};
+
+////Basic Examples
+//var query = students.All(stu => stu.Marks > 70);    //True
+//var query1 = students.All(stu => stu.Marks > 75);   //False
+
+//var query3 = (from student in students
+//              select student).All(x => x.Marks > 70);   //True
+
+////Complex example
+//var method_syntax = students.Where(std => std.Subject.All(x => x.SubjectMarks > 70)).Select(std => std).ToList();
+
+//var query_syntax = (from std in students
+//                    where std.Subject.All(x => x.SubjectMarks > 70)
+//                    select std).ToList();
+
+#endregion
+
+#region Any - At least one of the elements of the data source must justify the condition
+
+//List<int> numbers = new List<int>();
+
+//var isAvailable = numbers.Any();    //False
+
+//Student[] students =
+//{
+//    new Student { Name = "Kim", Marks = 91 },
+//    new Student { Name = "John", Marks = 80 },
+//    new Student { Name = "Lee", Marks = 75 }
+//};
+
+////Basic examples
+//var method_syntax = students.Any(stu => stu.Marks > 90);    //True
+//var method_syntax1 = students.Any(stu => stu.Marks > 91);   //False
+
+//var query_syntax = (from stu in students
+//                    select stu).Any(x => x.Marks > 90);
+
+//Complex example
 Student[] students =
 {
     new Student { Name="Kim", Marks=90,
@@ -709,7 +772,7 @@ Student[] students =
         new Subject() { SubjectName="Math", SubjectMarks=89 },
         new Subject() { SubjectName="English", SubjectMarks=91 },
         new Subject() { SubjectName="Art", SubjectMarks=90 },
-        new Subject() { SubjectName="History", SubjectMarks=91 }
+        new Subject() { SubjectName="History", SubjectMarks=93 }
     }},
     new Student { Name="Lee", Marks=75,
         Subject = new List<Subject>() {
@@ -720,25 +783,11 @@ Student[] students =
     }}
 };
 
-//Basic Examples
-var query = students.All(stu => stu.Marks > 70);    //True
-var query1 = students.All(stu => stu.Marks > 75);   //False
+var method_syntax = students.Where(std => std.Subject.Any(x => x.SubjectMarks > 91)).Select(std => std).ToList();
 
-var query3 = (from student in students
-              select student).All(x => x.Marks > 70);   //True
-
-//Complex example
-var method_syntax = students.Where(std => std.Subject.All(x => x.SubjectMarks > 70)).Select(std => std).ToList();
-
-var query_syntax = (from std in students
-                    where std.Subject.All(x => x.SubjectMarks > 70)
-                    select std).ToList();
-
-#endregion
-
-#region Any
-
-
+var query_syntax = (from stu in students
+                    where stu.Subject.Any(x => x.SubjectMarks > 91)
+                    select stu).ToList();
 
 #endregion
 
