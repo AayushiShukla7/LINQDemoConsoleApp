@@ -12,8 +12,9 @@ namespace LINQDemoConsole
         //public string StudentFullName { get; set; }
         //public string StudentEmail { get; set; }
 
+        public int Id { get; set; }
         public string Name { get; set; }
-        public int Marks { get; set; }
-        public List<Subject> Subject { get; set; }
+        //public int Marks { get; set; }
+        //public List<Subject> Subject { get; set; }
     }
 }

@@ -692,7 +692,7 @@ using System.Runtime.CompilerServices;
 
 #region Quantifier Operations
 
-// All, Any and Contains
+// All, Any and Contains [Returns Boolean]
 
 #region All - All the elements of the data source must justify the condition
 
@@ -736,7 +736,6 @@ using System.Runtime.CompilerServices;
 //                    select std).ToList();
 
 #endregion
-
 #region Any - At least one of the elements of the data source must justify the condition
 
 //List<int> numbers = new List<int>();
@@ -757,41 +756,73 @@ using System.Runtime.CompilerServices;
 //var query_syntax = (from stu in students
 //                    select stu).Any(x => x.Marks > 90);
 
-//Complex example
-Student[] students =
-{
-    new Student { Name="Kim", Marks=90,
-        Subject = new List<Subject>() {
-        new Subject() { SubjectName="Math", SubjectMarks=75 },
-        new Subject() { SubjectName="English", SubjectMarks=80 },
-        new Subject() { SubjectName="Art", SubjectMarks=86 },
-        new Subject() { SubjectName="History", SubjectMarks=91 }
-    }},
-    new Student { Name="John", Marks=80,
-        Subject = new List<Subject>() {
-        new Subject() { SubjectName="Math", SubjectMarks=89 },
-        new Subject() { SubjectName="English", SubjectMarks=91 },
-        new Subject() { SubjectName="Art", SubjectMarks=90 },
-        new Subject() { SubjectName="History", SubjectMarks=93 }
-    }},
-    new Student { Name="Lee", Marks=75,
-        Subject = new List<Subject>() {
-        new Subject() { SubjectName="Math", SubjectMarks=75 },
-        new Subject() { SubjectName="English", SubjectMarks=80 },
-        new Subject() { SubjectName="Art", SubjectMarks=60 },
-        new Subject() { SubjectName="History", SubjectMarks=91 }
-    }}
-};
+////Complex example
+//Student[] students =
+//{
+//    new Student { Name="Kim", Marks=90,
+//        Subject = new List<Subject>() {
+//        new Subject() { SubjectName="Math", SubjectMarks=75 },
+//        new Subject() { SubjectName="English", SubjectMarks=80 },
+//        new Subject() { SubjectName="Art", SubjectMarks=86 },
+//        new Subject() { SubjectName="History", SubjectMarks=91 }
+//    }},
+//    new Student { Name="John", Marks=80,
+//        Subject = new List<Subject>() {
+//        new Subject() { SubjectName="Math", SubjectMarks=89 },
+//        new Subject() { SubjectName="English", SubjectMarks=91 },
+//        new Subject() { SubjectName="Art", SubjectMarks=90 },
+//        new Subject() { SubjectName="History", SubjectMarks=93 }
+//    }},
+//    new Student { Name="Lee", Marks=75,
+//        Subject = new List<Subject>() {
+//        new Subject() { SubjectName="Math", SubjectMarks=75 },
+//        new Subject() { SubjectName="English", SubjectMarks=80 },
+//        new Subject() { SubjectName="Art", SubjectMarks=60 },
+//        new Subject() { SubjectName="History", SubjectMarks=91 }
+//    }}
+//};
 
-var method_syntax = students.Where(std => std.Subject.Any(x => x.SubjectMarks > 91)).Select(std => std).ToList();
+//var method_syntax = students.Where(std => std.Subject.Any(x => x.SubjectMarks > 91)).Select(std => std).ToList();
 
-var query_syntax = (from stu in students
-                    where stu.Subject.Any(x => x.SubjectMarks > 91)
-                    select stu).ToList();
+//var query_syntax = (from stu in students
+//                    where stu.Subject.Any(x => x.SubjectMarks > 91)
+//                    select stu).ToList();
 
 #endregion
+#region Contains - IEqualityComparer(Intro)
 
-#region Contains
+////Simple Examples
+//List<string> students = new List<string>() { "Kim", "Jacob", "Simon", "John" };
+
+//var isExist_Generic = students.Contains("Kim"); //True
+//var isExist_Linq = students.AsEnumerable().Contains("Test");    //False
+
+//var isExist_Query = (from std in students
+//                     select std).Contains("Kim");
+
+//Complex Examples
+List<Student> students = new List<Student>()
+{
+    new Student() { Id = 1, Name = "Kim" },
+    new Student() { Id = 2, Name = "John" }
+};
+
+var isExist_Method = students.Contains(new Student() { Id = 1, Name = "Kim" }); //Should be True but actually is False!! Why? - Because NO 2 references of the same type are the SAME
+
+//But this works fine
+var std = new Student() { Id = 1, Name = "Kim" };
+students.Add(std);
+
+var isExist_Method1 = students.Contains(std);    //True now! Because the same reference is added and checked.
+
+// CASE - DIFFERENT REFERENCES BUT SAME VALUES.
+// SOLUTION - IEqualityComparer
+var comparer = new StudentComparer();
+
+var isExist_method = students.Contains(new Student() { Id = 1, Name = "Kim" }, comparer);  //True this time! Why? - Because of comparer
+
+var isExist_query = (from student in students
+                     select student).Contains(new Student() { Id = 1, Name = "Kim" }, comparer);    //True
 
 #endregion
 
