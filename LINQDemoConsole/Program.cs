@@ -992,30 +992,51 @@ using System.Runtime.InteropServices;
 
 #region Take - Returns 'n' number of records from the start of the data source
 
-List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+//List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
-var ms = list.Take(5).ToArray();
-var ms_withCond = list.Where(x => x > 3).Take(5).ToArray(); //Returns 5 records
+//var ms = list.Take(5).ToArray();
+//var ms_withCond = list.Where(x => x > 3).Take(5).ToArray(); //Returns 5 records
 
-// Recommended to use TAKE(n) as the last parameter after all the conditions. Why? - Refer below scenario [Expecting 5 Got 2]
-var ms_whereAfterTakeCond = list.Take(5).Where(x => x > 3).ToArray();   //Returns 2 records (4 and 5)
+//// Recommended to use TAKE(n) as the last parameter after all the conditions. Why? - Refer below scenario [Expecting 5 Got 2]
+//var ms_whereAfterTakeCond = list.Take(5).Where(x => x > 3).ToArray();   //Returns 2 records (4 and 5)
 
-var qs = (from num in list
-         select num).Take(4).ToList();
-var qs_withCond = (from num in list
-                   where num > 3
-                   select num).Take(4).ToList();
+//var qs = (from num in list
+//         select num).Take(4).ToList();
+//var qs_withCond = (from num in list
+//                   where num > 3
+//                   select num).Take(4).ToList();
 
 #endregion
 
-#region TakeWhile
+#region TakeWhile - Returns 'n' number of records from the start of the data source until a specified condition is true. Once condition fails, TakeWhile quits.
 
+////Example #1
+//List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+//var ms = list.TakeWhile(x => x < 7).ToArray();  //Where() does the same thing, then why use TakeWhile()?
 
-Console.ReadLine();
+////Example #2
+//List<int> list = new List<int>() { 1, 2, 6, 7, 8, 9, 10, 3, 4, 5 };
+
+//var ms_TakeWhile = list.TakeWhile(x => x < 7).ToArray();    //Returns - 1, 2 & 6 [From the start till the condition stays True]
+//var ms_Where = list.Where(x => x < 7).ToArray(); //Returns - 1, 2, 3, 4, 5 & 6 [Position doesn't matter]
+
+//var qs = (from n in list
+//          select n).TakeWhile(x => x < 7).ToArray();
+
+//Example #3
+List<string> names = new List<string>() { "Kim", "John", "Mark", "Ada", "Nitish" };
+
+var ms = names.TakeWhile((name, index) => name.Length > index).ToList();
+
+var qs = (from n in names
+         select n).TakeWhile((name, index) => name.Length > index).ToList();
 
 #endregion
 
 #region Skip
+
+
+Console.ReadLine();
 
 #endregion
 
