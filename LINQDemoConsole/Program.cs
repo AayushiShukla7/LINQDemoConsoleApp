@@ -834,7 +834,29 @@ using System.Runtime.CompilerServices;
 
 #region Distinct - Removes duplicate values from data source
 
+//// Basic Example
+//List<int> numbers = new List<int>() { 1, 2, 3, 1, 2, 3, 4, 5, 5, 5 };
 
+//var ms = numbers.Distinct().ToList();
+//var qs = (from num in numbers
+//          select num).Distinct().ToList();
+
+// Complex Example
+List<Student> students = new List<Student>()
+{
+    new Student() { Id = 1, Name = "Kim" },
+    new Student() { Id = 2, Name = "John" },
+    new Student() { Id = 1, Name = "Kim" },
+    new Student() { Id = 4, Name = "John" }
+};
+
+// Before implementing IEquatable<T> interface => 4 records
+// After implementing IEquatable<T> interface => 3 records (only unique objects)
+var ms_notWorkingBecauseRef = students.Distinct().ToList();
+
+var ms = students.Select(x => x.Name).Distinct().ToList();
+
+var ms_Comparer = students.Distinct(new StudentComparer()).ToList();
 
 #endregion
 

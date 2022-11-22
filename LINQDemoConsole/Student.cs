@@ -6,15 +6,36 @@ using System.Threading.Tasks;
 
 namespace LINQDemoConsole
 {
-    public class Student
+    //A self-comparing class
+    public class Student : IEquatable<Student>
     {
         //public int StudentId { get; set; }
         //public string StudentFullName { get; set; }
         //public string StudentEmail { get; set; }
 
-        public int Id { get; set; }
-        public string Name { get; set; }
         //public int Marks { get; set; }
         //public List<Subject> Subject { get; set; }
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public bool Equals(Student? other)
+        {
+            if (object.ReferenceEquals(other, null))
+                return false;
+
+            if (object.ReferenceEquals(this, other))
+                return true;
+
+            return Id.Equals(other.Id) && Name.Equals(other.Name);
+        }
+
+        public override int GetHashCode()
+        {
+            int idHashCode = Id.GetHashCode();
+            int nameHashCode = Name.GetHashCode();
+
+            return idHashCode ^ nameHashCode;
+        }
     }
 }
