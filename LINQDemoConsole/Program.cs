@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 //List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
@@ -950,47 +951,77 @@ using System.Runtime.CompilerServices;
 //var qs = (from data in dataSource1
 //          select data).Union(dataSource2).ToList();
 
-// Complex Example
-List<Student> students = new List<Student>()
-{
-    new Student() { Id = 1, Name = "Kim" },
-    new Student() { Id = 2, Name = "John" },
-    new Student() { Id = 3, Name = "Kim" },
-    new Student() { Id = 4, Name = "Jill" }
-};
+//// Complex Example
+//List<Student> students = new List<Student>()
+//{
+//    new Student() { Id = 1, Name = "Kim" },
+//    new Student() { Id = 2, Name = "John" },
+//    new Student() { Id = 3, Name = "Kim" },
+//    new Student() { Id = 4, Name = "Jill" }
+//};
 
-List<Student> students1 = new List<Student>()
-{
-    new Student() { Id = 1, Name = "Kim" },
-    new Student() { Id = 2, Name = "John" },
-    new Student() { Id = 5, Name = "Kim" },
-    new Student() { Id = 6, Name = "Jill" }
-};
+//List<Student> students1 = new List<Student>()
+//{
+//    new Student() { Id = 1, Name = "Kim" },
+//    new Student() { Id = 2, Name = "John" },
+//    new Student() { Id = 5, Name = "Kim" },
+//    new Student() { Id = 6, Name = "Jill" }
+//};
 
-// Comparing one property of each of the objects (Ignores duplicates)
-var ms = students.Select(x => x.Name).Union(students1.Select(x => x.Name)).ToList();
+//// Comparing one property of each of the objects (Ignores duplicates)
+//var ms = students.Select(x => x.Name).Union(students1.Select(x => x.Name)).ToList();
 
-// Comparing the whole object - WORKS only with IEquatable<Student> implementation present!
-var ms_WithComparerImpl = students.Union(students1).ToList();
+//// Comparing the whole object - WORKS only with IEquatable<Student> implementation present!
+//var ms_WithComparerImpl = students.Union(students1).ToList();
 
-// NO IEquatable<Student> Scenario: #1 - Using Anonymous Method
-var ms_fixed = students.Select(x => new { x.Id, x.Name }).Union(students1.Select(x => new { x.Id, x.Name })).ToList();
+//// NO IEquatable<Student> Scenario: #1 - Using Anonymous Method
+//var ms_fixed = students.Select(x => new { x.Id, x.Name }).Union(students1.Select(x => new { x.Id, x.Name })).ToList();
 
-// NO IEquatable<Student> Scenario: #2 - Using Custom Comparer
-var qs = (from std in students
-          select std).Union(students1, new StudentComparer()).ToList();
+//// NO IEquatable<Student> Scenario: #2 - Using Custom Comparer
+//var qs = (from std in students
+//          select std).Union(students1, new StudentComparer()).ToList();
+
+#endregion
+#endregion
+
+#region Partitioning Operations
+
+// No data manipulation - Just for viewing purposes
+// Take, TakeWhile, Skip and SkipWhile
+// Best implementation is for Pagination
+
+#region Take - Returns 'n' number of records from the start of the data source
+
+List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+var ms = list.Take(5).ToArray();
+var ms_withCond = list.Where(x => x > 3).Take(5).ToArray(); //Returns 5 records
+
+// Recommended to use TAKE(n) as the last parameter after all the conditions. Why? - Refer below scenario [Expecting 5 Got 2]
+var ms_whereAfterTakeCond = list.Take(5).Where(x => x > 3).ToArray();   //Returns 2 records (4 and 5)
+
+var qs = (from num in list
+         select num).Take(4).ToList();
+var qs_withCond = (from num in list
+                   where num > 3
+                   select num).Take(4).ToList();
+
+#endregion
+
+#region TakeWhile
+
 
 Console.ReadLine();
 
 #endregion
 
+#region Skip
+
 #endregion
 
-#region Partitioning Operations
+#region SkipWhile
 
-// Take, TakeWhile, Skip and SkipWhile
-
-
+#endregion
 
 #endregion
 
