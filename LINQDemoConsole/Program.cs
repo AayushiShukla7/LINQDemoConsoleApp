@@ -1033,17 +1033,17 @@ using System.Runtime.InteropServices;
 #endregion
 #region Skip - Skips first 'n' elements from the start of the data source and returns the remaining elements
 
-//Example #1
-List<int> list = new List<int>() { 1, 2, 6, 7, 8, 9, 10, 3, 4, 5 };
+////Example #1
+//List<int> list = new List<int>() { 1, 2, 6, 7, 8, 9, 10, 3, 4, 5 };
 
-var ms = list.Skip(2).ToArray();
-var ms_withCond = list.Where(x => x >= 4).Skip(2).ToArray();
+//var ms = list.Skip(2).ToArray();
+//var ms_withCond = list.Where(x => x >= 4).Skip(2).ToArray();
 
-var qs = (from n in list
-          select n).Skip(2).ToList();
-var qs_withCond = (from n in list
-                   where n >= 5
-                   select n).Skip(2).ToList();
+//var qs = (from n in list
+//          select n).Skip(2).ToList();
+//var qs_withCond = (from n in list
+//                   where n >= 5
+//                   select n).Skip(2).ToList();
 
 ////Example #2
 //List<string> names = new List<string>() { "Kim", "John", "Mark", "Ada", "Nitish" };
@@ -1054,8 +1054,33 @@ var qs_withCond = (from n in list
 //          select n).Skip(2).ToArray();
 
 #endregion
+#region SkipWhile - Skips first 'n' elements from the start of the data source and returns the remaining elements until the specified condition is TRUE
 
-#region SkipWhile
+////Example #1
+//List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+//var ms = list.SkipWhile(x => x < 6).ToArray();  //Where(x => x >= 6) does the same thing, then why use SkipWhile()?
+
+////Example #2
+//List<int> list = new List<int>() { 1, 3, 4, 5, 6, 7, 8, 9, 10, 2 };
+
+//var ms_SkipWhile = list.SkipWhile(x => x < 6).ToArray();    //Returns 2 at the end as well [From the start till the condition stays True]
+//var ms_Where = list.Where(x => x >= 6).ToArray(); //Doesn't return 2 [Position doesn't matter, Condition does]
+
+//var qs = (from n in list
+//          select n).SkipWhile(x => x < 6).ToList();
+
+//Example #3
+List<string> names = new List<string>() { "Kim", "John", "Ma", "Ada", "Nitish" };
+
+var ms = names.SkipWhile(name => name.Length < 4).ToList();
+var ms_withIndex = names.SkipWhile((name, index) => name.Length > index).ToList();
+
+var qs = (from n in names
+          select n).SkipWhile((name, index) => name.Length > index).ToList();
+
+#endregion
+
+#region Implement Paging using Skip and Take operators
 
 
 Console.ReadLine();
