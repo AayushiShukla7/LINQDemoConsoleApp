@@ -1147,11 +1147,67 @@ using System.Runtime.InteropServices;
 // Used to get data from multiple data sources bases in some common property in data sources.
 // Inner Join, Group Join and Left Join
 
-#region Inner Join 
+#region Inner Join  - Returns all matching elements from both collections
+
+var students = new List<Student>()
+{
+    new Student() { Id=1, Name="A 1", AddressId=1 },
+    new Student() { Id=2, Name="A 2", AddressId=0 },    //No address presen for this student
+    new Student() { Id=3, Name="A 3", AddressId=2 },
+    new Student() { Id=4, Name="A 4", AddressId=0 },
+    new Student() { Id=5, Name="A 5", AddressId=3 }
+};
+
+var addresses = new List<Address>()
+{
+    new Address() { Id=1, AddressLine="Line 1" },
+    new Address() { Id=2, AddressLine="Line 2" },
+    new Address() { Id=3, AddressLine="Line 3" },
+    new Address() { Id=4, AddressLine="Line 4" },
+    new Address() { Id=5, AddressLine="Line 5" }
+};
+
+var qs = (from student in students
+          join address in addresses
+          on student.AddressId equals address.Id
+          select new
+          {
+              StudentName = student.Name,
+              StudentAddressLine = address.AddressLine
+          }).ToList();
+
+var qs_withCond = (from student in students
+          join address in addresses
+          on student.AddressId equals address.Id
+          select new
+          {
+              StudentName = student.Name,
+              StudentAddressLine = address.AddressLine
+          }).Where(x => x.StudentName.StartsWith('A')).ToList();
+
+var ms = students.Join(addresses, 
+    std => std.AddressId, 
+    add => add.Id,
+    (std, add) => new
+    {
+        std.Name,
+        add.AddressLine
+    }).ToList();
+
+var ms_withCond = students.Join(addresses,
+    std => std.AddressId,
+    add => add.Id,
+    (std, add) => new
+    {
+        std.Name,
+        add.AddressLine
+    }).Where(x => x.Name.StartsWith('A')).ToList();
 
 #endregion
 
 #region Inner Join in multiple tables
+
+Console.ReadLine();
 
 #endregion
 
