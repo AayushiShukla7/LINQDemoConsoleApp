@@ -1089,52 +1089,54 @@ using System.Runtime.InteropServices;
  * For pages => skip((pageNumber - 1) * n) take(n)
  */
 
-static List<Employee> GetEmployees()
-{
-    return new List<Employee>()
-    {
-        new Employee() { Id = 1, Name = "Melanie Hardacre"},
-        new Employee() { Id = 2, Name = "Grace Mathis"},
-        new Employee() { Id = 3, Name = "Nathan Howard"},
-        new Employee() { Id = 4, Name = "Lauren Springer"},
-        new Employee() { Id = 5, Name = "Emily Rutherford"},
-        new Employee() { Id = 6, Name = "Jack Peake"},
-        new Employee() { Id = 7, Name = "Jacob Rutherford"},
-        new Employee() { Id = 8, Name = "Julian Brown"},
-        new Employee() { Id = 9, Name = "Jack MacLeod"},
-        new Employee() { Id = 10, Name = "Rachel Taylor"},
-        new Employee() { Id = 11, Name = "Leonard Hunter"},
-        new Employee() { Id = 12, Name = "Megan Welch"},
-        new Employee() { Id = 13, Name = "Kylie Marshall"},
-        new Employee() { Id = 14, Name = "Anna Henderson"},
-        new Employee() { Id = 15, Name = "Irene Carr"},
-        new Employee() { Id = 16, Name = "Karen McDonald"},
-        new Employee() { Id = 17, Name = "Heather Clarkson"},
-        new Employee() { Id = 18, Name = "Elizabeth Newman"},
-        new Employee() { Id = 19, Name = "Dorothy Nolan"},
-        new Employee() { Id = 20, Name = "Kevin Baker"}
-    };
-}
+//2 types - Client [Fetch all data and pass it to a client that does the paging] AND Server [Shown below, from scratch]
 
-int totalPagePerView = 4;
+//static List<Employee> GetEmployees()
+//{
+//    return new List<Employee>()
+//    {
+//        new Employee() { Id = 1, Name = "Melanie Hardacre"},
+//        new Employee() { Id = 2, Name = "Grace Mathis"},
+//        new Employee() { Id = 3, Name = "Nathan Howard"},
+//        new Employee() { Id = 4, Name = "Lauren Springer"},
+//        new Employee() { Id = 5, Name = "Emily Rutherford"},
+//        new Employee() { Id = 6, Name = "Jack Peake"},
+//        new Employee() { Id = 7, Name = "Jacob Rutherford"},
+//        new Employee() { Id = 8, Name = "Julian Brown"},
+//        new Employee() { Id = 9, Name = "Jack MacLeod"},
+//        new Employee() { Id = 10, Name = "Rachel Taylor"},
+//        new Employee() { Id = 11, Name = "Leonard Hunter"},
+//        new Employee() { Id = 12, Name = "Megan Welch"},
+//        new Employee() { Id = 13, Name = "Kylie Marshall"},
+//        new Employee() { Id = 14, Name = "Anna Henderson"},
+//        new Employee() { Id = 15, Name = "Irene Carr"},
+//        new Employee() { Id = 16, Name = "Karen McDonald"},
+//        new Employee() { Id = 17, Name = "Heather Clarkson"},
+//        new Employee() { Id = 18, Name = "Elizabeth Newman"},
+//        new Employee() { Id = 19, Name = "Dorothy Nolan"},
+//        new Employee() { Id = 20, Name = "Kevin Baker"}
+//    };
+//}
 
-do
-{
-    Console.WriteLine("Enter your page number");
+//int totalPagePerView = 4;
 
-    if (int.TryParse(Console.ReadLine(), out int pageNumber))
-    {
-        var ms = GetEmployees().Skip((pageNumber - 1) * totalPagePerView).Take(totalPagePerView);
+//do
+//{
+//    Console.WriteLine("Enter your page number");
 
-        foreach (var item in ms)
-        {
-            Console.WriteLine($"Id = {item.Id} and Name = {item.Name}");
-        }
-    }
-    else
-        Console.WriteLine("Enter a valid page number");
-}
-while (true);
+//    if (int.TryParse(Console.ReadLine(), out int pageNumber))
+//    {
+//        var ms = GetEmployees().Skip((pageNumber - 1) * totalPagePerView).Take(totalPagePerView);
+
+//        foreach (var item in ms)
+//        {
+//            Console.WriteLine($"Id = {item.Id} and Name = {item.Name}");
+//        }
+//    }
+//    else
+//        Console.WriteLine("Enter a valid page number");
+//}
+//while (true);
 
 #endregion
 
