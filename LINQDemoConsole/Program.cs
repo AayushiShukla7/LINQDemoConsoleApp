@@ -1144,9 +1144,24 @@ using System.Runtime.InteropServices;
 
 #region Join Operations
 
+// Used to get data from multiple data sources bases in some common property in data sources.
 // Inner Join, Group Join and Left Join
 
+#region Inner Join 
 
+#endregion
+
+#region Inner Join in multiple tables
+
+#endregion
+
+#region Group Join
+
+#endregion
+
+#region Left Join
+
+#endregion
 
 #endregion
 
