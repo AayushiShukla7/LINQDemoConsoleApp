@@ -1069,21 +1069,72 @@ using System.Runtime.InteropServices;
 //var qs = (from n in list
 //          select n).SkipWhile(x => x < 6).ToList();
 
-//Example #3
-List<string> names = new List<string>() { "Kim", "John", "Ma", "Ada", "Nitish" };
+////Example #3
+//List<string> names = new List<string>() { "Kim", "John", "Ma", "Ada", "Nitish" };
 
-var ms = names.SkipWhile(name => name.Length < 4).ToList();
-var ms_withIndex = names.SkipWhile((name, index) => name.Length > index).ToList();
+//var ms = names.SkipWhile(name => name.Length < 4).ToList();
+//var ms_withIndex = names.SkipWhile((name, index) => name.Length > index).ToList();
 
-var qs = (from n in names
-          select n).SkipWhile((name, index) => name.Length > index).ToList();
+//var qs = (from n in names
+//          select n).SkipWhile((name, index) => name.Length > index).ToList();
 
 #endregion
-
 #region Implement Paging using Skip and Take operators
 
+// Paging - Process of dividing 'n' number of records into multiple pages. Previous + Next + First + Last buttons
+/*
+ * FORMULA: Total pages = t 
+ * Number of records per page = n
+ * For index => skip(index * n) take(n)
+ * For pages => skip((pageNumber - 1) * n) take(n)
+ */
 
-Console.ReadLine();
+static List<Employee> GetEmployees()
+{
+    return new List<Employee>()
+    {
+        new Employee() { Id = 1, Name = "Melanie Hardacre"},
+        new Employee() { Id = 2, Name = "Grace Mathis"},
+        new Employee() { Id = 3, Name = "Nathan Howard"},
+        new Employee() { Id = 4, Name = "Lauren Springer"},
+        new Employee() { Id = 5, Name = "Emily Rutherford"},
+        new Employee() { Id = 6, Name = "Jack Peake"},
+        new Employee() { Id = 7, Name = "Jacob Rutherford"},
+        new Employee() { Id = 8, Name = "Julian Brown"},
+        new Employee() { Id = 9, Name = "Jack MacLeod"},
+        new Employee() { Id = 10, Name = "Rachel Taylor"},
+        new Employee() { Id = 11, Name = "Leonard Hunter"},
+        new Employee() { Id = 12, Name = "Megan Welch"},
+        new Employee() { Id = 13, Name = "Kylie Marshall"},
+        new Employee() { Id = 14, Name = "Anna Henderson"},
+        new Employee() { Id = 15, Name = "Irene Carr"},
+        new Employee() { Id = 16, Name = "Karen McDonald"},
+        new Employee() { Id = 17, Name = "Heather Clarkson"},
+        new Employee() { Id = 18, Name = "Elizabeth Newman"},
+        new Employee() { Id = 19, Name = "Dorothy Nolan"},
+        new Employee() { Id = 20, Name = "Kevin Baker"}
+    };
+}
+
+int totalPagePerView = 4;
+
+do
+{
+    Console.WriteLine("Enter your page number");
+
+    if (int.TryParse(Console.ReadLine(), out int pageNumber))
+    {
+        var ms = GetEmployees().Skip((pageNumber - 1) * totalPagePerView).Take(totalPagePerView);
+
+        foreach (var item in ms)
+        {
+            Console.WriteLine($"Id = {item.Id} and Name = {item.Name}");
+        }
+    }
+    else
+        Console.WriteLine("Enter a valid page number");
+}
+while (true);
 
 #endregion
 
