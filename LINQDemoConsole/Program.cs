@@ -1451,7 +1451,7 @@ using System.ComponentModel.DataAnnotations;
 
 #region First() Vs FirstOrDefault()
 
-// Returns first element from a specific index
+// Returns first element from a first index
 // If element not available at first index -> 
 // First = Throws Exception, FirstOrDefault = Doesn't!
 
@@ -1469,6 +1469,44 @@ using System.ComponentModel.DataAnnotations;
 //var mixedSyntax = (from n in numbers
 //                   select n).First();
 
+////Complex Example
+//var users = new List<User>()
+//{
+//    new User() { Id = 1, UserName = "Admin", Password = "Admin" },
+//    new User() { Id = 2, UserName = "UserA", Password = "UserA" },
+//    new User() { Id = 3, UserName = "UserB", Password = "UserB" },
+//    new User() { Id = 4, UserName = "UserC", Password = "UserC" }
+//};
+
+//var ms = users.First(x => x.UserName == "Admin" && x.Password == "Admin");  //Returns 1 record
+
+////var ms_withException = users.First(x => x.UserName == "Admin" && x.Password == "Adminsdgdrt");  //Throws InvalidOperationException [runtime]
+//var ms_withoutException = users.FirstOrDefault(x => x.UserName == "Admin" && x.Password == "Adminsdgdrt"); //Doesn't throw error (returns Null)
+
+//var mixedSyntax = (from user in users
+//                  select user).FirstOrDefault(x => x.UserName == "UserA" && x.Password == "UserA");
+
+#endregion
+
+#region Last() Vs LastOrDefault()
+
+// Returns first element from the last index
+// If element not available at last index -> 
+// Last = Throws Exception, LastOrDefault = Doesn't!
+
+////Simple Example
+//List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+//var ms = numbers.Last();    //Returns 10
+//var ms1 = numbers.LastOrDefault();  //Returns 10
+
+////var ms_withCond = numbers.Where(x => x > 15).Last();   //Throws IndexOutOfRange runtime exception 
+//var ms_withCond = numbers.Where(x => x > 15).LastOrDefault();   //No exception (returns 0)
+
+//var mixedSyntax = (from n in numbers
+//                   where n > 15
+//                   select n).LastOrDefault();   //Returns 0
+
 //Complex Example
 var users = new List<User>()
 {
@@ -1478,17 +1516,13 @@ var users = new List<User>()
     new User() { Id = 4, UserName = "UserC", Password = "UserC" }
 };
 
-var ms = users.First(x => x.UserName == "Admin" && x.Password == "Admin");  //Returns 1 record
+var ms = users.Last(x => x.UserName.Contains("User") && x.Password.Contains("User"));  //Returns UserC
 
 //var ms_withException = users.First(x => x.UserName == "Admin" && x.Password == "Adminsdgdrt");  //Throws InvalidOperationException [runtime]
-var ms_withoutException = users.FirstOrDefault(x => x.UserName == "Admin" && x.Password == "Adminsdgdrt"); //Doesn't throw error (returns Null)
+var ms_withoutException = users.LastOrDefault(x => x.UserName.Contains("User") && x.Password.Contains("UserQ")); //Doesn't throw error (returns Null)
 
 var mixedSyntax = (from user in users
-                  select user).FirstOrDefault(x => x.UserName == "UserA" && x.Password == "UserA");
-
-#endregion
-
-#region Last() Vs LastOrDefault()
+                   select user).LastOrDefault(x => x.UserName.Contains("User") && x.Password.Contains("User")); //Returns UserC
 
 #endregion
 
