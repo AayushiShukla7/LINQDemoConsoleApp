@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Collections.Immutable;
 
 //List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
@@ -1307,60 +1308,111 @@ using System.Runtime.InteropServices;
 
 #region Group Join - Groups the result based on a common key
 
-var students = new List<Student>()
-{
-    new Student() { Id=1, Name="Maria", CategoryId=1 },
-    new Student() { Id=2, Name="Amelia", CategoryId=1 },
-    new Student() { Id=3, Name="Rebecca", CategoryId=2 },
-    new Student() { Id=4, Name="Una", CategoryId=2 },
-    new Student() { Id=5, Name="Victoria", CategoryId=3 }
-};
+//var students = new List<Student>()
+//{
+//    new Student() { Id=1, Name="Maria", CategoryId=1 },
+//    new Student() { Id=2, Name="Amelia", CategoryId=1 },
+//    new Student() { Id=3, Name="Rebecca", CategoryId=2 },
+//    new Student() { Id=4, Name="Una", CategoryId=2 },
+//    new Student() { Id=5, Name="Victoria", CategoryId=3 }
+//};
 
-var categories = new List<Category>()
-{
-    new Category() { Id=1, Name="Monitor" },
-    new Category() { Id=2, Name="Discipline" },
-    new Category() { Id=3, Name="Nothing" }
-};
+//var categories = new List<Category>()
+//{
+//    new Category() { Id=1, Name="Monitor" },
+//    new Category() { Id=2, Name="Discipline" },
+//    new Category() { Id=3, Name="Nothing" }
+//};
 
-// Whichever collection you want to group by, put that as OUTER part of the query
-var ms = categories.GroupJoin(students, 
-    cat => cat.Id, 
-    std => std.CategoryId,
-    (cat, std) => new { cat, std }
-    );
+//// Whichever collection you want to group by, put that as OUTER part of the query
+//var ms = categories.GroupJoin(students, 
+//    cat => cat.Id, 
+//    std => std.CategoryId,
+//    (cat, std) => new { cat, std }
+//    );
 
-foreach (var item in ms)
-{
-    Console.WriteLine(item.cat.Name + " ==>");
+//foreach (var item in ms)
+//{
+//    Console.WriteLine(item.cat.Name + " ==>");
 
-    foreach (var c in item.std)
-    {
-        Console.WriteLine(c.Name);
-    }
-}
+//    foreach (var c in item.std)
+//    {
+//        Console.WriteLine(c.Name);
+//    }
+//}
 
-var qs = from cat in categories
-          join std in students
-          on cat.Id equals std.CategoryId
-          into stdGroups
-          select new { cat, stdGroups };
+//var qs = from cat in categories
+//          join std in students
+//          on cat.Id equals std.CategoryId
+//          into stdGroups
+//          select new { cat, stdGroups };
 
-foreach(var item in qs)
-{
-    Console.WriteLine(item.cat.Name + " ==>");
+//foreach(var item in qs)
+//{
+//    Console.WriteLine(item.cat.Name + " ==>");
 
-    foreach(var c in item.stdGroups)
-    {
-        Console.WriteLine(c.Name);
-    }
+//    foreach(var c in item.stdGroups)
+//    {
+//        Console.WriteLine(c.Name);
+//    }
 
-    Console.WriteLine();
-}
+//    Console.WriteLine();
+//}
 
 #endregion
 
-#region Left Join
+#region Left Join OR Left Outer Join [Outer keyword is optional]
+
+// All data from first data source is returned regardles of any match found in second data source [NULL value returned for non-matching/exclusive to first source data]
+
+var students = new List<Student>()
+{
+    new Student() { Id=1, Name="Maria", AddressId=1 },
+    new Student() { Id=2, Name="Amelie", AddressId=2 },
+    new Student() { Id=3, Name="Rebecca" },  //No address present for this student
+    new Student() { Id=4, Name="Una", AddressId=3 },
+    new Student() { Id=5, Name="Victoria", AddressId=5 }    //Unmatching Id (unique to this data source)
+};
+
+var addresses = new List<Address>()
+{
+    new Address() { Id=1, AddressLine="Maria address" },
+    new Address() { Id=2, AddressLine="Amelie address" },
+    new Address() { Id=3, AddressLine="Rebecca address" }
+};
+
+// No LEFT JOIN in query syntax. Have to figure out another way [group join + select from the grouped data even if non-matching info is found(DefaultIfEmpty)]
+var qs = (from std in students
+          join add in addresses
+          on std.AddressId equals add.Id
+          into stdAddress
+          from studentAddress in stdAddress.DefaultIfEmpty()
+          select new { std, studentAddress }).ToList(); //Returns 5 records with 2 NULLS for addresses
+
+//This throws Null reference exception if Nulls are not handled for possible null values
+var qs1 = (from std in students
+           join add in addresses
+           on std.AddressId equals add.Id
+           into stdAddress
+           from studentAddress in stdAddress.DefaultIfEmpty()
+           select new
+           {
+               StudentName = std.Name,
+               StudentAddress = studentAddress != null ? studentAddress.AddressLine : "NA"
+           }).ToList();
+
+// Method Syntax - Not Preferred! Gets too complex. Could cause errors.
+var ms = students.GroupJoin(addresses,
+    std => std.AddressId,
+    add => add.Id,
+    (std, add) => new { std, add })
+    .SelectMany(x => x.add.DefaultIfEmpty(),
+    (studentData, addressData) =>
+    new
+    {
+        studentData.std,
+        addressData
+    }).ToList();
 
 #endregion
 
