@@ -1430,28 +1430,61 @@ using System.ComponentModel.DataAnnotations;
 // If element not available at given index -> 
 // ElementAt = Throws Exception, ElementAtOrDefault = Doesn't!
 
-List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-List<string> names = new List<string>() { "Raj", "Kavita" };
+//List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+//List<string> names = new List<string>() { "Raj", "Kavita" };
 
-var ms = numbers.ElementAt(3);
-//var ms_returnsException = numbers.ElementAt(10);    //Throws IndexOutOfRange runtime exception
+//var ms = numbers.ElementAt(3);
+////var ms_returnsException = numbers.ElementAt(10);    //Throws IndexOutOfRange runtime exception
 
-var ms_def = numbers.ElementAtOrDefault(3);
-var ms_defOutOfRange_Int = numbers.ElementAtOrDefault(10);  //Returns 0 ->  default value for List<T> type. Default of 'int' is 0.
-var ms_defOutOfRange_String = names.ElementAtOrDefault(5);  //Returns null (string = ref type)
+//var ms_def = numbers.ElementAtOrDefault(3);
+//var ms_defOutOfRange_Int = numbers.ElementAtOrDefault(10);  //Returns 0 ->  default value for List<T> type. Default of 'int' is 0.
+//var ms_defOutOfRange_String = names.ElementAtOrDefault(5);  //Returns null (string = ref type)
 
-//This slices the first 3 records and picks the value at position #1(2nd acually) => 5
-//Element and ElementAtOrDefault could be used at the end of any query
-var ms_defWithCond = numbers.Where(x => x > 3).ElementAtOrDefault(1);
+////This slices the first 3 records and picks the value at position #1(2nd acually) => 5
+////Element and ElementAtOrDefault could be used at the end of any query
+//var ms_defWithCond = numbers.Where(x => x > 3).ElementAtOrDefault(1);
 
-var mixedSyntax = (from n in numbers
-                   select n).ElementAt(6);
-
-Console.ReadLine();
+//var mixedSyntax = (from n in numbers
+//                   select n).ElementAt(6);
 
 #endregion
 
 #region First() Vs FirstOrDefault()
+
+// Returns first element from a specific index
+// If element not available at first index -> 
+// First = Throws Exception, FirstOrDefault = Doesn't!
+
+////Simple Example
+//List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+//List<string> names = new List<string>() { "Raj", "Kavita" };
+
+//var ms = numbers.First();   //Returns 1
+//var ms_withCond = numbers.Where(x => x > 5).First();    //Returns 6
+////var ms_withCond_Exception = numbers.Where(x => x > 10).First(); //Throws InvalidOperationException [runtime]
+
+////Alternate way of adding condition to First() - Prefered [FAST because one operation]
+//var ms_withCond1 = numbers.First(x => x > 5);   //Returns 6
+
+//var mixedSyntax = (from n in numbers
+//                   select n).First();
+
+//Complex Example
+var users = new List<User>()
+{
+    new User() { Id = 1, UserName = "Admin", Password = "Admin" },
+    new User() { Id = 2, UserName = "UserA", Password = "UserA" },
+    new User() { Id = 3, UserName = "UserB", Password = "UserB" },
+    new User() { Id = 4, UserName = "UserC", Password = "UserC" }
+};
+
+var ms = users.First(x => x.UserName == "Admin" && x.Password == "Admin");  //Returns 1 record
+
+//var ms_withException = users.First(x => x.UserName == "Admin" && x.Password == "Adminsdgdrt");  //Throws InvalidOperationException [runtime]
+var ms_withoutException = users.FirstOrDefault(x => x.UserName == "Admin" && x.Password == "Adminsdgdrt"); //Doesn't throw error (returns Null)
+
+var mixedSyntax = (from user in users
+                  select user).FirstOrDefault(x => x.UserName == "UserA" && x.Password == "UserA");
 
 #endregion
 
