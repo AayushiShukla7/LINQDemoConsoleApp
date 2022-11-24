@@ -1507,26 +1507,57 @@ using System.ComponentModel.DataAnnotations;
 //                   where n > 15
 //                   select n).LastOrDefault();   //Returns 0
 
-//Complex Example
-var users = new List<User>()
-{
-    new User() { Id = 1, UserName = "Admin", Password = "Admin" },
-    new User() { Id = 2, UserName = "UserA", Password = "UserA" },
-    new User() { Id = 3, UserName = "UserB", Password = "UserB" },
-    new User() { Id = 4, UserName = "UserC", Password = "UserC" }
-};
+////Complex Example
+//var users = new List<User>()
+//{
+//    new User() { Id = 1, UserName = "Admin", Password = "Admin" },
+//    new User() { Id = 2, UserName = "UserA", Password = "UserA" },
+//    new User() { Id = 3, UserName = "UserB", Password = "UserB" },
+//    new User() { Id = 4, UserName = "UserC", Password = "UserC" }
+//};
 
-var ms = users.Last(x => x.UserName.Contains("User") && x.Password.Contains("User"));  //Returns UserC
+//var ms = users.Last(x => x.UserName.Contains("User") && x.Password.Contains("User"));  //Returns UserC
 
-//var ms_withException = users.First(x => x.UserName == "Admin" && x.Password == "Adminsdgdrt");  //Throws InvalidOperationException [runtime]
-var ms_withoutException = users.LastOrDefault(x => x.UserName.Contains("User") && x.Password.Contains("UserQ")); //Doesn't throw error (returns Null)
+////var ms_withException = users.First(x => x.UserName == "Admin" && x.Password == "Adminsdgdrt");  //Throws InvalidOperationException [runtime]
+//var ms_withoutException = users.LastOrDefault(x => x.UserName.Contains("User") && x.Password.Contains("UserQ")); //Doesn't throw error (returns Null)
 
-var mixedSyntax = (from user in users
-                   select user).LastOrDefault(x => x.UserName.Contains("User") && x.Password.Contains("User")); //Returns UserC
+//var mixedSyntax = (from user in users
+//                   select user).LastOrDefault(x => x.UserName.Contains("User") && x.Password.Contains("User")); //Returns UserC
 
 #endregion
 
 #region Single() Vs SingleOrDefault()
+
+// Returns single element [Unique] from the data source
+// If element is available at multiple places (more than 1 occurance) then both methods throw an exception
+// If no element exists in data source -> Single throws error but SingleOrDefault doesn't and returns the default value
+
+//// Example #1
+//List<int> numbers = new List<int>() { };
+
+////var ms = numbers.Single();    //Throws IndexOutOfRange runtime exception 
+//var ms = numbers.SingleOrDefault();  //Returns 0 (no exception)
+
+//// Example #2
+//List<int> numbers = new List<int>() { 1 };
+
+//var ms = numbers.Single();    //Returns 1
+//var ms1 = numbers.SingleOrDefault();    //Returns 1
+
+// Example #2
+List<int> numbers = new List<int>() { 1, 2 };
+
+////Both of these throw IndexOutOfRange runtime exception (sequence contains more than one element)
+//var ms = numbers.Single();    
+//var ms1 = numbers.SingleOrDefault();
+
+var ms_withCond = numbers.Where(x => x > 1).Single();   //Returns 2
+
+//Both of the queries would throw an error because more that one matching element from Where query
+List<int> numbers1 = new List<int>() { 1, 2, 3 };
+//var ms_withCond1 = numbers1.Where(x => x > 1).Single();  
+//var ms_withCond2 = numbers1.Where(x => x > 1).SingleOrDefault();  //More than 1 matching element
+var ms_withCond0 = numbers1.Where(x => x > 5).SingleOrDefault();    //No matching element (returns 0)
 
 #endregion
 
