@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Collections.Immutable;
+using System.ComponentModel.DataAnnotations;
 
 //List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
@@ -1424,6 +1425,29 @@ using System.Collections.Immutable;
 // ElementAt(), ElementAtOrDefault(), First(), FirstOrDefault(), Last(), LastOrDefault(), Single() and SingleOrDefault()
 
 #region ElementAt() Vs ElementAtOrDefault()
+
+// Returns an element from a specific index
+// If element not available at given index -> 
+// ElementAt = Throws Exception, ElementAtOrDefault = Doesn't!
+
+List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+List<string> names = new List<string>() { "Raj", "Kavita" };
+
+var ms = numbers.ElementAt(3);
+//var ms_returnsException = numbers.ElementAt(10);    //Throws IndexOutOfRange runtime exception
+
+var ms_def = numbers.ElementAtOrDefault(3);
+var ms_defOutOfRange_Int = numbers.ElementAtOrDefault(10);  //Returns 0 ->  default value for List<T> type. Default of 'int' is 0.
+var ms_defOutOfRange_String = names.ElementAtOrDefault(5);  //Returns null (string = ref type)
+
+//This slices the first 3 records and picks the value at position #1(2nd acually) => 5
+//Element and ElementAtOrDefault could be used at the end of any query
+var ms_defWithCond = numbers.Where(x => x > 3).ElementAtOrDefault(1);
+
+var mixedSyntax = (from n in numbers
+                   select n).ElementAt(6);
+
+Console.ReadLine();
 
 #endregion
 
