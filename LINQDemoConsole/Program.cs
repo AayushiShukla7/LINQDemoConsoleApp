@@ -1365,54 +1365,54 @@ using System.Collections.Immutable;
 
 // All data from first data source is returned regardles of any match found in second data source [NULL value returned for non-matching/exclusive to first source data]
 
-var students = new List<Student>()
-{
-    new Student() { Id=1, Name="Maria", AddressId=1 },
-    new Student() { Id=2, Name="Amelie", AddressId=2 },
-    new Student() { Id=3, Name="Rebecca" },  //No address present for this student
-    new Student() { Id=4, Name="Una", AddressId=3 },
-    new Student() { Id=5, Name="Victoria", AddressId=5 }    //Unmatching Id (unique to this data source)
-};
+//var students = new List<Student>()
+//{
+//    new Student() { Id=1, Name="Maria", AddressId=1 },
+//    new Student() { Id=2, Name="Amelie", AddressId=2 },
+//    new Student() { Id=3, Name="Rebecca" },  //No address present for this student
+//    new Student() { Id=4, Name="Una", AddressId=3 },
+//    new Student() { Id=5, Name="Victoria", AddressId=5 }    //Unmatching Id (unique to this data source)
+//};
 
-var addresses = new List<Address>()
-{
-    new Address() { Id=1, AddressLine="Maria address" },
-    new Address() { Id=2, AddressLine="Amelie address" },
-    new Address() { Id=3, AddressLine="Rebecca address" }
-};
+//var addresses = new List<Address>()
+//{
+//    new Address() { Id=1, AddressLine="Maria address" },
+//    new Address() { Id=2, AddressLine="Amelie address" },
+//    new Address() { Id=3, AddressLine="Rebecca address" }
+//};
 
-// No LEFT JOIN in query syntax. Have to figure out another way [group join + select from the grouped data even if non-matching info is found(DefaultIfEmpty)]
-var qs = (from std in students
-          join add in addresses
-          on std.AddressId equals add.Id
-          into stdAddress
-          from studentAddress in stdAddress.DefaultIfEmpty()
-          select new { std, studentAddress }).ToList(); //Returns 5 records with 2 NULLS for addresses
+//// No LEFT JOIN in query syntax. Have to figure out another way [group join + select from the grouped data even if non-matching info is found(DefaultIfEmpty)]
+//var qs = (from std in students
+//          join add in addresses
+//          on std.AddressId equals add.Id
+//          into stdAddress
+//          from studentAddress in stdAddress.DefaultIfEmpty()
+//          select new { std, studentAddress }).ToList(); //Returns 5 records with 2 NULLS for addresses
 
-//This throws Null reference exception if Nulls are not handled for possible null values
-var qs1 = (from std in students
-           join add in addresses
-           on std.AddressId equals add.Id
-           into stdAddress
-           from studentAddress in stdAddress.DefaultIfEmpty()
-           select new
-           {
-               StudentName = std.Name,
-               StudentAddress = studentAddress != null ? studentAddress.AddressLine : "NA"
-           }).ToList();
+////This throws Null reference exception if Nulls are not handled for possible null values
+//var qs1 = (from std in students
+//           join add in addresses
+//           on std.AddressId equals add.Id
+//           into stdAddress
+//           from studentAddress in stdAddress.DefaultIfEmpty()
+//           select new
+//           {
+//               StudentName = std.Name,
+//               StudentAddress = studentAddress != null ? studentAddress.AddressLine : "NA"
+//           }).ToList();
 
-// Method Syntax - Not Preferred! Gets too complex. Could cause errors.
-var ms = students.GroupJoin(addresses,
-    std => std.AddressId,
-    add => add.Id,
-    (std, add) => new { std, add })
-    .SelectMany(x => x.add.DefaultIfEmpty(),
-    (studentData, addressData) =>
-    new
-    {
-        studentData.std,
-        addressData
-    }).ToList();
+//// Method Syntax - Not Preferred! Gets too complex. Could cause errors.
+//var ms = students.GroupJoin(addresses,
+//    std => std.AddressId,
+//    add => add.Id,
+//    (std, add) => new { std, add })
+//    .SelectMany(x => x.add.DefaultIfEmpty(),
+//    (studentData, addressData) =>
+//    new
+//    {
+//        studentData.std,
+//        addressData
+//    }).ToList();
 
 #endregion
 
@@ -1420,9 +1420,24 @@ var ms = students.GroupJoin(addresses,
 
 #region Element Operations
 
+// Returns a single element (primitive or object)
 // ElementAt(), ElementAtOrDefault(), First(), FirstOrDefault(), Last(), LastOrDefault(), Single() and SingleOrDefault()
 
+#region ElementAt() Vs ElementAtOrDefault()
 
+#endregion
+
+#region First() Vs FirstOrDefault()
+
+#endregion
+
+#region Last() Vs LastOrDefault()
+
+#endregion
+
+#region Single() Vs SingleOrDefault()
+
+#endregion
 
 #endregion
 
