@@ -1544,20 +1544,20 @@ using System.ComponentModel.DataAnnotations;
 //var ms = numbers.Single();    //Returns 1
 //var ms1 = numbers.SingleOrDefault();    //Returns 1
 
-// Example #2
-List<int> numbers = new List<int>() { 1, 2 };
+//// Example #2
+//List<int> numbers = new List<int>() { 1, 2 };
 
 ////Both of these throw IndexOutOfRange runtime exception (sequence contains more than one element)
 //var ms = numbers.Single();    
 //var ms1 = numbers.SingleOrDefault();
 
-var ms_withCond = numbers.Where(x => x > 1).Single();   //Returns 2
+//var ms_withCond = numbers.Where(x => x > 1).Single();   //Returns 2
 
 //Both of the queries would throw an error because more that one matching element from Where query
-List<int> numbers1 = new List<int>() { 1, 2, 3 };
+//List<int> numbers1 = new List<int>() { 1, 2, 3 };
 //var ms_withCond1 = numbers1.Where(x => x > 1).Single();  
 //var ms_withCond2 = numbers1.Where(x => x > 1).SingleOrDefault();  //More than 1 matching element
-var ms_withCond0 = numbers1.Where(x => x > 5).SingleOrDefault();    //No matching element (returns 0)
+//var ms_withCond0 = numbers1.Where(x => x > 5).SingleOrDefault();    //No matching element (returns 0)
 
 #endregion
 
